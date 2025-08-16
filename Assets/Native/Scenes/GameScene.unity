@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 88701700}
   - component: {fileID: 88701699}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Card Pool
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -148,10 +148,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8357285106ccca24f9bac3a38d22b1c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardPrefab: {fileID: 8891261803554893281, guid: d18deba0634b06f4fa3370e8d73ab2dc, type: 3}
+  cardPrefab: {fileID: -2230272936117926733, guid: fbe61f26c59a1de4788ec9a3d95a4b88, type: 3}
   cards: []
-  _maxCardAmount: 13
-  _cardAmount: 12
+  _maxCardAmount: 12
+  _cardAmount: 10
 --- !u!4 &88701700
 Transform:
   m_ObjectHideFlags: 0
@@ -207,7 +207,7 @@ MonoBehaviour:
   _fullscreenAd: {fileID: 8973596623523368340, guid: b9e8fb2a3c8eaec4e99b71d285b7b87d, type: 3}
   _rateGame: {fileID: 2650456539451266974, guid: 4945d9658005c9d478c189f55b1a8c95, type: 3}
   _readyGameAPI: {fileID: 3602667140450574609, guid: c31d947b93fc4724d83ee88624219dcb, type: 3}
-  _uiSwitcher: {fileID: 2505061467916088747, guid: 0c1e0f8c4ab151d47b99438b17e27ea5, type: 3}
+  _uiSwitcher: {fileID: 2505061467916088747, guid: 4d15f263da158bd4f8420186df363fd9, type: 3}
 --- !u!114 &1120068248
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -442,6 +442,7 @@ GameObject:
   - component: {fileID: 2016285105}
   - component: {fileID: 2016285104}
   - component: {fileID: 2016285103}
+  - component: {fileID: 2016285106}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -492,7 +493,7 @@ Camera:
   far clip plane: 10
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -523,6 +524,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2016285106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2016285102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56666c5a40171f54783dd416a44f42bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EventMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_MaxRayIntersections: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

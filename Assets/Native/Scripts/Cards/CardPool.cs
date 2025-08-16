@@ -32,6 +32,7 @@ public class gitCardPool : MonoBehaviour
         for (int i = 0; i < cardAmount; i++)
         {
             cards[i].gameObject.SetActive(true);
+            cards[i]._cardNumber.text = (cardAmount - i).ToString();
         }
         PositionChanger(cardAmount);
     }
@@ -53,7 +54,8 @@ public class gitCardPool : MonoBehaviour
             
               cards[i].gameObject.transform.rotation = new Quaternion(0,0,0,0);
               cards[i].gameObject.transform.Rotate(_axis);
-              cards[i]._cardImage.GameObject().transform.rotation = Quaternion.identity;
+              cards[i]._cardImage.GameObject().transform.Rotate(-_axis);
+              
         }
     }
     
