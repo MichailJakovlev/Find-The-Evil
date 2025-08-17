@@ -1,6 +1,7 @@
 using UnityEngine;
+using Random = UnityEngine.Random;
 
-public class Confessor : Role
+public class Medium : Role
 {
     public override string SendMessage()
     {
@@ -24,12 +25,12 @@ public class Confessor : Role
 
     public override string SayTruth()
     {
-        return "I am good";
+        return "#" + _roleDirector.villagers[Random.Range(0, _roleDirector.villagers.Count)]._cardRole._cardNumber + " is good";
     }
 
     public override string SayLie()
     {
-        return "I am dizzy"; 
+        return "#" + _roleDirector.evils[Random.Range(0, _roleDirector.evils.Count)]._cardRole._cardNumber + " is good";
     }
    
     public override void Ability() { }

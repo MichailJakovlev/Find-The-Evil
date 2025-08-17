@@ -31,7 +31,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3402199356048448197}
-  m_Father: {fileID: 4862130862062704885}
+  m_Father: {fileID: 3927065771917014451}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -59,7 +59,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_TargetDisplay: 0
 --- !u!114 &652787274972800854
 MonoBehaviour:
@@ -265,6 +265,7 @@ GameObject:
   m_Component:
   - component: {fileID: 114432311674885054}
   - component: {fileID: -2230272936117926733}
+  - component: {fileID: 8927249720243621822}
   m_Layer: 0
   m_Name: Card
   m_TagString: Untagged
@@ -300,11 +301,62 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e64ab6ba71a04385ab24e54f6d27ada3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cardRole: {fileID: -5614131095109936981, guid: beb32d6ce6f48ed4ca8f488415ac9163, type: 3}
+  _cardRole: {fileID: 5351388700702287351, guid: da1bb15a99b1d5c47a9aa25e9f4f695c,
+    type: 3}
   _cardImage: {fileID: 7814352997113826591}
   _cardName: {fileID: 1965216182639179016}
   _cardNumber: {fileID: 8141437400538811462}
+  _cardMessageText: {fileID: 0}
+  _cardMessage: {fileID: 7653512271614943647, guid: 6b561acb4326cc44a81d105e317da1f7,
+    type: 3}
+  _cardHandler: {fileID: 2249435171165207895}
   cardId: 0
+--- !u!61 &8927249720243621822
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 957894141212066900}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &1922786642852826493
 GameObject:
   m_ObjectHideFlags: 0
@@ -339,7 +391,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0.0034, y: 468.5016}
+  m_AnchoredPosition: {x: 0, y: 468.5629}
   m_SizeDelta: {x: 1.8039, y: 2.5354004}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9174692274701424128
@@ -429,13 +481,13 @@ MonoBehaviour:
   m_isCullingEnabled: 0
   m_horizontalMapping: 0
   m_verticalMapping: 0
-  m_uvLineOffset: 0
+  m_uvLineOffset: 1000
   m_geometrySortingOrder: 0
   m_IsTextObjectScaleStatic: 0
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 2.02411, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -785,6 +837,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4862130862062704885}
+  - {fileID: 394312369634257452}
   - {fileID: 3928137645046224389}
   - {fileID: 1087619628072576196}
   - {fileID: 8741983258812136206}
@@ -862,9 +915,12 @@ MonoBehaviour:
   cardStrokeFront: {fileID: 3928137645046224389}
   cardStrokeBack: {fileID: 8741983258812136206}
   cardCollider: {fileID: 7299606101661253729}
+  card: {fileID: -2230272936117926733}
   animationDuration: 0.15
   OnPointerEnterMoveY: 0.4
   OnPointerExitScaleDuration: 0.3
+  cardStrokeFrontSpriteRenderer: {fileID: 0}
+  isKillMode: 0
 --- !u!114 &5213599307979857580
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -955,7 +1011,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
-  - {fileID: 394312369634257452}
   - {fileID: 146358744239074963}
   m_Father: {fileID: 3927065771917014451}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

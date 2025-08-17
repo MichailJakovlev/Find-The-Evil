@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using Zenject;
 
@@ -14,6 +15,7 @@ public class UIHandler : MonoBehaviour
     private IReadyGameAPI _readyGameAPI;
 
     public bool _isAuthed = false;
+    public bool _isKillMode = false;
 
     [Inject]
     private void Cunstruct(ILeaderboard uileaderbord, ISceneState sceneState, IFullscreenAd fullscreenAd, IRewardAd rewardAd, IAuthorization authorization, IEventBus eventBus, IRateGame rateGame, IReadyGameAPI readyGameAPI)
@@ -53,6 +55,24 @@ public class UIHandler : MonoBehaviour
     public void Auth() => _authorization.Authorization.Auth();
     public void StopGame() => _eventBus.EventBus.StopGameEvent();
     public void StartGame() => _eventBus?.EventBus.StartGameEvent();
+    
+    public void KillModeOn() => _eventBus?.EventBus.KillModeOnEvent();
+    public void KillModeOff() => _eventBus?.EventBus.KillModeOffEvent();
+
+    public void KillMode()
+    {
+        if (_isKillMode)
+        {
+            KillModeOff();
+            _isKillMode = false;
+        }
+        else
+        {
+            KillModeOn();
+            _isKillMode = true;
+        }
+        
+    }
 
     public void OpenLeaderboard()
     {
