@@ -33,6 +33,7 @@ public class gitCardPool : MonoBehaviour
         {
             cards[i].gameObject.SetActive(true);
             cards[i]._cardNumber.text = (cardAmount - i).ToString();
+            cards[i].cardId = (cardAmount - i);
         }
         PositionChanger(cardAmount);
     }

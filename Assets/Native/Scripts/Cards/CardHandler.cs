@@ -13,7 +13,7 @@ public class CardHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     [SerializeField] private Transform cardStrokeBack;
     
     [Header("Collider")]
-    [SerializeField] private BoxCollider2D cardCollider;
+    public BoxCollider2D cardCollider;
     
     [Header("Settings")]
     [SerializeField] private float animationDuration = 0.1f;

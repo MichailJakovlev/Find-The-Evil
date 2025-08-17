@@ -6,6 +6,7 @@ public class Card : MonoBehaviour
     public SpriteRenderer _cardImage;
     public TextMeshProUGUI _cardName;
     public TextMeshProUGUI _cardNumber;
+    public int cardId;
 
     void Start()
     {

@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 394312369634257452}
   - component: {fileID: 9048193853416124949}
   - component: {fileID: 652787274972800854}
-  - component: {fileID: 1649949725957220699}
   m_Layer: 5
   m_Name: Canvas Number
   m_TagString: Untagged
@@ -85,23 +84,6 @@ MonoBehaviour:
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
   m_PresetInfoIsWorld: 1
---- !u!114 &1649949725957220699
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 361789481025622906}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
 --- !u!1 &561273269282937181
 GameObject:
   m_ObjectHideFlags: 0
@@ -113,7 +95,6 @@ GameObject:
   - component: {fileID: 146358744239074963}
   - component: {fileID: 3311342702602609671}
   - component: {fileID: 2981071864622957806}
-  - component: {fileID: 5848194710322165589}
   m_Layer: 5
   m_Name: Canvas Role Name
   m_TagString: Untagged
@@ -187,23 +168,6 @@ MonoBehaviour:
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
   m_PresetInfoIsWorld: 1
---- !u!114 &5848194710322165589
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 561273269282937181}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
 --- !u!1 &781323963109400874
 GameObject:
   m_ObjectHideFlags: 0
@@ -281,7 +245,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: e0542df3e1dbb4a46875b3ca8663cb47, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.6053485, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -340,6 +304,7 @@ MonoBehaviour:
   _cardImage: {fileID: 7814352997113826591}
   _cardName: {fileID: 1965216182639179016}
   _cardNumber: {fileID: 8141437400538811462}
+  cardId: 0
 --- !u!1 &1922786642852826493
 GameObject:
   m_ObjectHideFlags: 0
@@ -628,7 +593,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 2
+  m_text: 1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -776,7 +741,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: aa58ea0ffac13ed4781ea79a8ab413cf, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.60784316, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -797,6 +762,7 @@ GameObject:
   - component: {fileID: 3927065771917014451}
   - component: {fileID: 7814352997113826591}
   - component: {fileID: 2249435171165207895}
+  - component: {fileID: 5213599307979857580}
   - component: {fileID: 7299606101661253729}
   m_Layer: 0
   m_Name: CardItem
@@ -899,6 +865,20 @@ MonoBehaviour:
   animationDuration: 0.15
   OnPointerEnterMoveY: 0.4
   OnPointerExitScaleDuration: 0.3
+--- !u!114 &5213599307979857580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5798342063213711526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dff16d6a3d874afd846e4ab8548a22e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  card: {fileID: -2230272936117926733}
+  cardHandler: {fileID: 2249435171165207895}
 --- !u!61 &7299606101661253729
 BoxCollider2D:
   m_ObjectHideFlags: 0
