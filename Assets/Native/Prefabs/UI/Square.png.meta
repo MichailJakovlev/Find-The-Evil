@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a598e55b8c6dd5d4fa81060f125e3d57
+guid: 13c31279b486f6a40a1926248f82b0f2
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -155,11 +155,11 @@ TextureImporter:
       name: Square
       rect:
         serializedVersion: 2
-        x: 102
-        y: 64
-        width: 128
-        height: 192
-      alignment: 9
+        x: 0
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 

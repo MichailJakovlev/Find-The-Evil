@@ -1,11 +1,15 @@
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class gitCardPool : MonoBehaviour
+public class CardPool : MonoBehaviour
 {
     [SerializeField] private Card cardPrefab;
-    [SerializeField] private Card[] cards;
+    [SerializeField] private CardMessage cardMessagePrefab;
+    [SerializeField] private GameObject[] cardMessages;
+    [SerializeField] private RoleDirector roleDirector;
     
+    public Card[] cards;
     public int _maxCardAmount;
     public int _cardAmount;
     
@@ -13,6 +17,7 @@ public class gitCardPool : MonoBehaviour
     void Start()
     {
         cards = new Card[_maxCardAmount];
+        cardMessages = new GameObject[_maxCardAmount];
         Create();
     }
 
@@ -21,6 +26,9 @@ public class gitCardPool : MonoBehaviour
         for (int i = 0; i < _maxCardAmount; i++)
         {
             cards[i] = Instantiate(cardPrefab, transform);
+            cardMessages[i] = Instantiate(cardMessagePrefab.gameObject, transform);
+            cards[i]._cardMessage = cardMessages[i].GetComponent<CardMessage>();
+            cardMessages[i].gameObject.SetActive(false);
             cards[i].gameObject.SetActive(false);
         }
 
@@ -32,9 +40,12 @@ public class gitCardPool : MonoBehaviour
         for (int i = 0; i < cardAmount; i++)
         {
             cards[i].gameObject.SetActive(true);
-            cards[i]._cardNumber.text = (cardAmount - i).ToString();
+            cards[i]._cardNumber.text = "#" + (cardAmount - i).ToString();
+            cards[i]._cardMessageText = cardMessages[i].transform.GetComponentInChildren<TextMeshProUGUI>();
+            cardMessages[i].SetActive(true);
         }
         PositionChanger(cardAmount);
+        roleDirector.AssignRoles();
     }
 
     public void PositionChanger(int value)
@@ -56,6 +67,9 @@ public class gitCardPool : MonoBehaviour
               cards[i].gameObject.transform.Rotate(_axis);
               cards[i]._cardImage.GameObject().transform.Rotate(-_axis);
               
+              cardMessages[i].gameObject.transform.rotation = new Quaternion(0,0,0,0);
+              cardMessages[i].gameObject.transform.Rotate(_axis);
+              cardMessages[i].transform.GetChild(0).transform.Rotate(-_axis);
         }
     }
     

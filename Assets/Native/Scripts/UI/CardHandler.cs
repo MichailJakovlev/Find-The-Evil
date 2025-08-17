@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using DG.Tweening;
+using TMPro;
 using UnityEngine.UI;
 
 public class CardHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
@@ -14,20 +15,44 @@ public class CardHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     
     [Header("Collider")]
     [SerializeField] private BoxCollider2D cardCollider;
+    [SerializeField] private Card card;
     
     [Header("Settings")]
     [SerializeField] private float animationDuration = 0.1f;
     [SerializeField] private float OnPointerEnterMoveY = 0.4f;
     [SerializeField] private float OnPointerExitScaleDuration = 0.3f;
     
-    private SpriteRenderer cardBackSpriteRenderer;
-    private SpriteRenderer cardImageSpriteRenderer;
-    private SpriteRenderer cardStrokeFrontSpriteRenderer;
-    private SpriteRenderer cardStrokeBackSpriteRenderer;
+    public SpriteRenderer cardBackSpriteRenderer;
+    public SpriteRenderer cardImageSpriteRenderer;
+    public SpriteRenderer cardStrokeFrontSpriteRenderer;
+    public SpriteRenderer cardStrokeBackSpriteRenderer;
     private Vector3 startPosition;
     
     private bool isFlipped = false;
+    public bool isKillMode = false;
 
+    public void OnEnable()
+    {
+        EventBus.KillModeOn += CardKillModeOn;
+        EventBus.KillModeOff += CardKillModeOff;
+    }
+
+    public void OnDisable() 
+    {
+        EventBus.KillModeOn -= CardKillModeOn;
+        EventBus.KillModeOff -= CardKillModeOff;
+    }
+    
+    public void CardKillModeOn()
+    {
+        isKillMode = true;
+    }
+
+    public void CardKillModeOff()
+    {
+        isKillMode = false;
+    }
+    
     private void Start()
     {
         startPosition = cardBack.position;
@@ -35,6 +60,7 @@ public class CardHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         cardImageSpriteRenderer = cardFront.GetComponent<SpriteRenderer>();
         cardStrokeFrontSpriteRenderer = cardStrokeFront.GetComponent<SpriteRenderer>();
         cardStrokeBackSpriteRenderer = cardStrokeBack.GetComponent<SpriteRenderer>();
+        card._cardName.gameObject.SetActive(false);
     }
     
     public void OnPointerEnter(PointerEventData eventData)
@@ -84,7 +110,7 @@ public class CardHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     {
         if (pointerEventData.button == PointerEventData.InputButton.Right)
         {
-            Debug.Log(name + " Game Object Right Clicked!");
+            // Debug.Log(name + " Game Object Right Clicked!" + pointerEventData);
         }
         
         if (pointerEventData.button == PointerEventData.InputButton.Left)
@@ -111,31 +137,37 @@ public class CardHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
                    
                 });
                 isFlipped = true;
-                Debug.Log(name + " Game Object Left Clicked!");
+               // Debug.Log(name + " Game Object Left Clicked!");
+               card.ShowMessage();
+               card._cardName.gameObject.SetActive(true);
             }
             
-            else if (isFlipped)
-            { 
-                Sequence flipCardSequence = DOTween.Sequence();
-                flipCardSequence
-                    .Append(cardFront.DORotate(new Vector3(0f, 90f, 0f), animationDuration, RotateMode.Fast).From(new Vector3(0f, 0f, 0f)))
-                    .Join(cardStrokeFront.DORotate(new Vector3(0f, 90f, 0f), animationDuration, RotateMode.Fast).From(new Vector3(0f, 0f, 0f)))
-                    .Append(cardBack.DORotate(new Vector3(0f, 0f, 0f), animationDuration, RotateMode.Fast).From(new Vector3(0f, -90f, 0f)))
-                    .Join(cardStrokeBack.DORotate(new Vector3(0f, 0f, 0f), animationDuration, RotateMode.Fast).From(new Vector3(0f, -90f, 0f)))
-                    .Join(cardBackSpriteRenderer.DOFade(1f, 0f))
-                    .Join(cardImageSpriteRenderer.DOFade(0f, 0f));
-                
-                cardStrokeFrontSpriteRenderer.enabled = false;
-                    
-                flipCardSequence.OnPlay(() =>
-                {
-                    cardCollider.enabled = false;
-                });
-                flipCardSequence.OnComplete(() => {
-                    cardCollider.enabled = true;
-                });
-                isFlipped = false;
-                Debug.Log(name + " Game Object Left Clicked!");
+            // else if (isFlipped)
+            // { 
+            //     Sequence flipCardSequence = DOTween.Sequence();
+            //     flipCardSequence
+            //         .Append(cardFront.DORotate(new Vector3(0f, 90f, 0f), animationDuration, RotateMode.Fast).From(new Vector3(0f, 0f, 0f)))
+            //         .Join(cardStrokeFront.DORotate(new Vector3(0f, 90f, 0f), animationDuration, RotateMode.Fast).From(new Vector3(0f, 0f, 0f)))
+            //         .Append(cardBack.DORotate(new Vector3(0f, 0f, 0f), animationDuration, RotateMode.Fast).From(new Vector3(0f, -90f, 0f)))
+            //         .Join(cardStrokeBack.DORotate(new Vector3(0f, 0f, 0f), animationDuration, RotateMode.Fast).From(new Vector3(0f, -90f, 0f)))
+            //         .Join(cardBackSpriteRenderer.DOFade(1f, 0f))
+            //         .Join(cardImageSpriteRenderer.DOFade(0f, 0f));
+            //     
+            //     cardStrokeFrontSpriteRenderer.enabled = false;
+            //     
+            //     flipCardSequence.OnPlay(() =>
+            //     {
+            //         cardCollider.enabled = false;
+            //     });
+            //     flipCardSequence.OnComplete(() => {
+            //         cardCollider.enabled = true;
+            //     });
+            //     isFlipped = false;
+            //   //  Debug.Log(name + " Game Object Left Clicked!");
+            // }
+            if (isKillMode)
+            {
+                card.KillCard();
             }
         }
     }
