@@ -849,9 +849,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roles:
-  - {fileID: -5614131095109936981, guid: beb32d6ce6f48ed4ca8f488415ac9163, type: 3}
   - {fileID: -6315115466268026975, guid: 2912d9a24d59d6249a6da68b94039d54, type: 3}
   - {fileID: 5351388700702287351, guid: da1bb15a99b1d5c47a9aa25e9f4f695c, type: 3}
+  - {fileID: 8363844532616324775, guid: ad4f7f9472013c948a60eadc0d34a9f5, type: 3}
   cardPool: {fileID: 88701699}
   villagers: []
   outcasts: []

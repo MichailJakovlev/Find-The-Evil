@@ -4,7 +4,7 @@ using UnityEngine;
 public class RoleDirector : MonoBehaviour
 {
     [SerializeField] private List<Role> roles;
-    [SerializeField] private CardPool cardPool;
+    public CardPool cardPool;
     public List<Card> villagers;
     public List<Card> outcasts;
     public List<Card> evils;
@@ -13,7 +13,7 @@ public class RoleDirector : MonoBehaviour
     {
         for (int i = 0; i < cardPool._cardAmount; i++)
         {
-            cardPool.cards[i]._cardRole = roles[Random.Range(0, roles.Count)];
+            cardPool.cards[i]._cardRole = Instantiate(roles[Random.Range(0, roles.Count)]);
             
             if (cardPool.cards[i]._cardRole._roleType == "Evil")
             {
