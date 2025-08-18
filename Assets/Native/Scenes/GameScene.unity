@@ -575,7 +575,7 @@ MonoBehaviour:
   roles:
   - {fileID: -6315115466268026975, guid: 2912d9a24d59d6249a6da68b94039d54, type: 3}
   - {fileID: 5351388700702287351, guid: da1bb15a99b1d5c47a9aa25e9f4f695c, type: 3}
-  - {fileID: 8363844532616324775, guid: ad4f7f9472013c948a60eadc0d34a9f5, type: 3}
+  - {fileID: 1666300796620940851, guid: cab2aec2244d2744d818c2d0fd4faf1a, type: 3}
   cardPool: {fileID: 88701699}
   villagers: []
   outcasts: []
