@@ -8,7 +8,7 @@ public class Hunter : Role
     {
         if (_roleType == "Evil" || _cardStatus == "corrupted")
         {
-            return SayLie();
+            return SayLie(_cardNumber);
         }
         else
         {
@@ -28,64 +28,62 @@ public class Hunter : Role
     {
         var evilsList = _roleDirector.evils;
         var minDistance = _roleDirector.cardPool._cardAmount;
-        Debug.Log(_roleType + " " +_cardNumber);
 
         foreach (var evil in evilsList)
         {
-            int d1 = Mathf.Abs(_cardNumber - evil.cardId);
-            int d2 = Mathf.Abs(_cardNumber - (evil.cardId + _roleDirector.cardPool._cardAmount));
-            int d3 = Mathf.Abs(_cardNumber - (evil.cardId - _roleDirector.cardPool._cardAmount));
+            int distance1 = Mathf.Abs(_cardNumber - evil.cardId);
+            int distance2 = Mathf.Abs(_cardNumber - (evil.cardId + _roleDirector.cardPool._cardAmount));
+            int distance3 = Mathf.Abs(_cardNumber - (evil.cardId - _roleDirector.cardPool._cardAmount));
             
-            int d = Mathf.Min(d1, Mathf.Min(d2, d3));
+            int distance = Mathf.Min(distance1, Mathf.Min(distance2, distance3));
 
-            if (d < minDistance)
+            if (distance < minDistance)
             {
-                minDistance = d;
+                minDistance = distance;
             }
         }
         
         return $"I am {minDistance} card away from closest Evil";
     }
 
-    public override string SayLie()
+    public override string SayLie(int evilCardNumber)
     {
-        // var evilsList = _roleDirector.evils;
-        // var villagerList = _roleDirector.villagers;
-        // var outcastList = _roleDirector.outcasts;
-        // var mergedLists = villagerList.Concat(outcastList).ToList();
-        // List<int> goodListDistance = new List<int>();
-        Debug.Log(_roleType + " " + _cardNumber);
+        var evilsList = _roleDirector.evils;
+        var villagerList = _roleDirector.villagers;
+        var outcastList = _roleDirector.outcasts;
+        var mergedLists = villagerList.Concat(outcastList).ToList();
+        List<int> goodListDistance = new List<int>();
+        List<int> evilListDistance = new List<int>();
 
-        // var minDistance = _roleDirector.cardPool._cardAmount;
-        //
-        // foreach (var evil in evilsList)
-        // {
-        //     int distance1 = Mathf.Abs(_cardNumber - evil.cardId);
-        //     int distance2 = Mathf.Abs(_cardNumber - (evil.cardId + _roleDirector.cardPool._cardAmount));
-        //     int distance3 = Mathf.Abs(_cardNumber - (evil.cardId - _roleDirector.cardPool._cardAmount));
-        //     
-        //     int distance = Mathf.Min(distance1, Mathf.Min(distance2, distance3));
-        //     if (distance < minDistance && distance != 0)
-        //     {
-        //         minDistance = distance;
-        //     }
-        // }
-        // foreach (var goodCard in mergedLists)
-        // {
-        //     int distance1 = Mathf.Abs(_cardNumber - goodCard.cardId);
-        //     int distance2 = Mathf.Abs(_cardNumber - (goodCard.cardId + _roleDirector.cardPool._cardAmount));
-        //     int distance3 = Mathf.Abs(_cardNumber - (goodCard.cardId - _roleDirector.cardPool._cardAmount));
-        //     
-        //     int distance = Mathf.Min(distance1, Mathf.Min(distance2, distance3));
-        //     // Debug.Log(minDistance + ": " + _cardNumber);
-        //     if (distance != minDistance && distance != 0)
-        //     {
-        //         goodListDistance.Add(distance);
-        //     }
-        // }
-        // var randomIndex = Random.Range(0, goodListDistance.Count - 1);
-        // // foreach (var goodCard in goodListDistance) Debug.Log(goodCard);
-        return $" ";
+        var minDistance = _roleDirector.cardPool._cardAmount;
+        
+        foreach (var evil in evilsList)
+        {
+            int distance1 = Mathf.Abs(evilCardNumber - evil.cardId);
+            int distance2 = Mathf.Abs(evilCardNumber - (evil.cardId + _roleDirector.cardPool._cardAmount));
+            int distance3 = Mathf.Abs(evilCardNumber - (evil.cardId - _roleDirector.cardPool._cardAmount));
+            
+            int distance = Mathf.Min(distance1, Mathf.Min(distance2, distance3));
+            if (distance != 0 && !evilListDistance.Contains(distance))
+            {
+                evilListDistance.Add(distance);
+            }
+        }
+        foreach (var goodCard in mergedLists)
+        {
+            int distance1 = Mathf.Abs(evilCardNumber - goodCard.cardId);
+            int distance2 = Mathf.Abs(evilCardNumber - (goodCard.cardId + _roleDirector.cardPool._cardAmount));
+            int distance3 = Mathf.Abs(evilCardNumber - (goodCard.cardId - _roleDirector.cardPool._cardAmount));
+            
+            int distance = Mathf.Min(distance1, Mathf.Min(distance2, distance3));
+            if (distance != 0 && !goodListDistance.Contains(distance))
+            {
+                goodListDistance.Add(distance);
+            }
+        }
+        List<int> differenceList = goodListDistance.Except(evilListDistance).ToList();
+        var randomIndex = Random.Range(0, differenceList.Count);
+        return $"I am {differenceList[randomIndex]} card away from closest Evil";
     }
    
     public override void Ability() { }

@@ -7,7 +7,7 @@ public class Medium : Role
     {
         if (_roleType == "Evil" || _cardStatus == "corrupted")
         {
-            return SayLie();
+            return SayLie(_cardNumber);
         }
         else
         {
@@ -29,7 +29,7 @@ public class Medium : Role
         return "#" + _roleDirector.villagers[rand]._cardRole._cardNumber + " is real " + _roleDirector.villagers[rand]._cardRole._cardName;
     }
 
-    public override string SayLie()
+    public override string SayLie(int evilCardNumber)
     {
         int rand = Random.Range(0, _roleDirector.evils.Count);
         return "#" + _roleDirector.evils[rand]._cardRole._cardNumber + " is real " + _roleDirector.evils[rand]._cardRole._substituteRole._cardName;

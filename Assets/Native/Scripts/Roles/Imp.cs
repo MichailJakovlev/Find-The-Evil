@@ -4,7 +4,7 @@ public class Imp : Role
     {
         if (_roleType == "Evil" || _cardStatus == "Corrupted")
         {
-            return SayLie();
+            return SayLie(_cardNumber);
         }
         else
         {
@@ -25,9 +25,9 @@ public class Imp : Role
         return _substituteRole.SayTruth();
     }
 
-    public override string SayLie()
+    public override string SayLie(int evilCardNumber)
     {
-        return _substituteRole.SayLie(); 
+        return _substituteRole.SayLie(_cardNumber); 
     }
    
     public override void Ability() { }

@@ -38,7 +38,7 @@ public abstract class Role : MonoBehaviour
       return " ";
    }
 
-   public virtual string SayLie()
+   public virtual string SayLie(int evilCardNumber)
    {
       return " "; 
    }

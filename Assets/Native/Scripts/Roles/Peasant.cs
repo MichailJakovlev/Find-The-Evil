@@ -6,7 +6,7 @@ public class Peasant : Role
     {
         if (_roleType == "Evil" || _cardStatus == "corrupted")
         {
-            return SayLie();
+            return SayLie(_cardNumber);
         }
         else
         {
@@ -27,7 +27,7 @@ public class Peasant : Role
         return "I am villager";
     }
 
-    public override string SayLie()
+    public override string SayLie(int evilCardNumber)
     {
         return "I am villager";
     }
