@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -14,10 +15,26 @@ public class CardPool : MonoBehaviour
     public int _cardAmount;
     
     private Vector3 _axis;
+    private KillCardButton _killCardButton;
+    
+    private void OnEnable()
+    {
+        EventBus.RestartRound += Realize;
+        
+    }
+
+    private void OnDisable()
+    {
+        EventBus.RestartRound -= Realize;
+    }
+
     void Start()
     {
+        _killCardButton = FindFirstObjectByType<KillCardButton>();
+        _killCardButton.Hide();
         cards = new Card[_maxCardAmount];
         cardMessages = new GameObject[_maxCardAmount];
+        
         Create();
     }
 
@@ -40,11 +57,12 @@ public class CardPool : MonoBehaviour
         for (int i = 0; i < cardAmount; i++)
         {
             cards[i].gameObject.SetActive(true);
-            cards[i]._cardNumber.text = "#" + (cardAmount - i).ToString();
+            cards[i]._cardNumber.text = "#" + (cardAmount - i);
             cards[i]._cardMessageText = cardMessages[i].transform.GetComponentInChildren<TextMeshProUGUI>();
             cardMessages[i].SetActive(true);
             cards[i].cardId = (cardAmount - i);
         }
+        
         PositionChanger(cardAmount);
         roleDirector.AssignRoles();
     }
@@ -78,7 +96,16 @@ public class CardPool : MonoBehaviour
     {
         for (int i = 0; i < _maxCardAmount; i++)
         {
+            cards[i].gameObject.transform.rotation = Quaternion.Euler(Vector3.zero);
+            cards[i]._cardImage.GameObject().transform.rotation = Quaternion.Euler(Vector3.zero);
+            
+            cardMessages[i].gameObject.transform.rotation = Quaternion.Euler(Vector3.zero);
+            cardMessages[i].transform.GetChild(0).transform.rotation = Quaternion.Euler(Vector3.zero);
+            
             cards[i].gameObject.SetActive(false);
+            cardMessages[i].SetActive(false);   
         }
+        roleDirector.ClearRoles();
+        Get(10);
     }
 }

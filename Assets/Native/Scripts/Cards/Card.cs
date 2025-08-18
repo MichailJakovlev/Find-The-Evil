@@ -1,15 +1,29 @@
 ﻿using TMPro;
 using UnityEngine;
+
 public class Card : MonoBehaviour
 {
     public Role _cardRole;
     public SpriteRenderer _cardImage;
     public TextMeshProUGUI _cardName;
     public TextMeshProUGUI _cardNumber;
+    [HideInInspector]
     public TextMeshProUGUI _cardMessageText;
     public CardMessage _cardMessage;
-    [SerializeField] private CardHandler _cardHandler;
     public int cardId;
+    
+    [SerializeField] private CardHandler _cardHandler;
+    private UIHandler _uiHandler;
+    public void OnEnable()
+    {
+        _uiHandler = FindObjectOfType<UIHandler>();
+        EventBus.RestartRound += ClearCard;
+    }
+
+    private void OnDisable()
+    {
+        EventBus.RestartRound -= ClearCard;
+    }
 
     public void Init()
     {
@@ -26,8 +40,15 @@ public class Card : MonoBehaviour
 
     public void ShowMessage()
     {
-        _cardMessage.gameObject.SetActive(true);
-        _cardMessageText.text = _cardRole.SendMessage();
+        if (_cardRole._canUseAbility == false && _cardRole._substituteRole._canUseAbility == false)
+        {
+            _cardMessage.gameObject.SetActive(true);
+            _cardMessageText.text = _cardRole.SendMessage();
+        }
+        else
+        {
+            _cardMessage.gameObject.SetActive(false);
+        }
     }
 
     public void KillCard()
@@ -43,8 +64,14 @@ public class Card : MonoBehaviour
         {
             Debug.Log("Is not Evil");
         }
+        _uiHandler.KillMode();
     }
     
-    
+    public void ClearCard() 
+    {
+        _cardName.color = Color.black;
+        _cardHandler.cardStrokeFrontSpriteRenderer.color = Color.white;
+        _cardHandler.cardImageSpriteRenderer.color = Color.white;
+    }
 }
 

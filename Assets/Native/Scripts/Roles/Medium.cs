@@ -25,12 +25,14 @@ public class Medium : Role
 
     public override string SayTruth()
     {
-        return "#" + _roleDirector.villagers[Random.Range(0, _roleDirector.villagers.Count)]._cardRole._cardNumber + " is good";
+        int rand = Random.Range(0, _roleDirector.villagers.Count);
+        return "#" + _roleDirector.villagers[rand]._cardRole._cardNumber + " is real " + _roleDirector.villagers[rand]._cardRole._cardName;
     }
 
     public override string SayLie()
     {
-        return "#" + _roleDirector.evils[Random.Range(0, _roleDirector.evils.Count)]._cardRole._cardNumber + " is good";
+        int rand = Random.Range(0, _roleDirector.evils.Count);
+        return "#" + _roleDirector.evils[rand]._cardRole._cardNumber + " is real " + _roleDirector.evils[rand]._cardRole._substituteRole._cardName;
     }
    
     public override void Ability() { }

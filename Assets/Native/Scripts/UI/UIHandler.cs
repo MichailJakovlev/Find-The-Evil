@@ -56,24 +56,32 @@ public class UIHandler : MonoBehaviour
     public void StopGame() => _eventBus.EventBus.StopGameEvent();
     public void StartGame() => _eventBus?.EventBus.StartGameEvent();
     
-    public void KillModeOn() => _eventBus?.EventBus.KillModeOnEvent();
-    public void KillModeOff() => _eventBus?.EventBus.KillModeOffEvent();
-
     public void KillMode()
     {
         if (_isKillMode)
         {
             KillModeOff();
-            _isKillMode = false;
         }
         else
         {
             KillModeOn();
-            _isKillMode = true;
         }
-        
+    }
+    
+    public void KillModeOn()
+    {
+        _eventBus?.EventBus.KillModeOnEvent();
+        _isKillMode = true;
     }
 
+    public void KillModeOff()
+    {   
+        _eventBus?.EventBus.KillModeOffEvent();
+        _isKillMode = false;
+    }
+
+    public void RestartRound() => _eventBus?.EventBus.RestartRoundEvent();
+    
     public void OpenLeaderboard()
     {
         if (_isAuthed == true)
