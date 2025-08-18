@@ -54,7 +54,7 @@ public class Hunter : Role
         // var outcastList = _roleDirector.outcasts;
         // var mergedLists = villagerList.Concat(outcastList).ToList();
         // List<int> goodListDistance = new List<int>();
-        Debug.Log(_roleType + " " + _substituteRole?._cardNumber);
+        Debug.Log(_roleType + " " + _cardNumber);
 
         // var minDistance = _roleDirector.cardPool._cardAmount;
         //

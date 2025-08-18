@@ -170,7 +170,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: e53963b60daf3f84eb9bc4d69cc02cf9, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_FlipX: 0
@@ -199,9 +199,15 @@ MonoBehaviour:
   cardStrokeFront: {fileID: 9031903510306580202}
   cardStrokeBack: {fileID: 3640469217239895009}
   cardCollider: {fileID: 3357751353701544078}
+  card: {fileID: 0}
   animationDuration: 0.15
   OnPointerEnterMoveY: 0.4
   OnPointerExitScaleDuration: 0.3
+  cardBackSpriteRenderer: {fileID: 0}
+  cardImageSpriteRenderer: {fileID: 0}
+  cardStrokeFrontSpriteRenderer: {fileID: 0}
+  cardStrokeBackSpriteRenderer: {fileID: 0}
+  isKillMode: 0
 --- !u!61 &3357751353701544078
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -262,6 +268,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cardRole: {fileID: -5614131095109936981, guid: beb32d6ce6f48ed4ca8f488415ac9163, type: 3}
   _cardImage: {fileID: 4209001401292626094}
+  _cardName: {fileID: 0}
+  _cardNumber: {fileID: 0}
+  _cardMessageText: {fileID: 0}
+  _cardMessage: {fileID: 0}
+  cardId: 0
+  _cardHandler: {fileID: 0}
 --- !u!1 &2581967506522224395
 GameObject:
   m_ObjectHideFlags: 0

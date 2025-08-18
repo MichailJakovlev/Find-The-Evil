@@ -4,16 +4,24 @@ public abstract class Role : MonoBehaviour
 {   
    [HideInInspector]
    public int _cardNumber;
-   [HideInInspector]
    public Role _substituteRole;
    [HideInInspector]
    public RoleDirector _roleDirector;
+   public AbilityInfo _abilityInfo;
    
    public string _cardName;
    public string _cardStatus;
    public string _roleType;
    public Sprite _roleImage;
    public bool _canUseAbility;
+
+   private void Awake()
+   {
+      if (_roleType == "Villager")
+      {
+         _substituteRole = this;
+      }
+   }
    
    public virtual string SendMessage()
    {
@@ -22,10 +30,7 @@ public abstract class Role : MonoBehaviour
 
    public virtual void UseAbility()
    {
-      if (_canUseAbility && _cardStatus != "corrupted")
-      {
-         Ability();
-      }
+      
    }
 
    public virtual string SayTruth()

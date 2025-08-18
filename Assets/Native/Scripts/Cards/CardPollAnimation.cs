@@ -2,7 +2,7 @@ using System;
 using DG.Tweening;
 using UnityEngine;
 
-public class CardPollAnimation : MonoBehaviour
+public class CardPoolAnimation : MonoBehaviour
 {
     [Header("Settings")]
     [SerializeField] private float moveDuration = 0.4f; 
@@ -11,9 +11,26 @@ public class CardPollAnimation : MonoBehaviour
     [Header("Dependence")]
     [SerializeField] private Card card;
     [SerializeField] private CardHandler cardHandler;
+    [SerializeField] private Collider2D cardCollider;
     
     private Vector3 startPosition;
+
+    private void OnEnable()
+    {
+        EventBus.RestartRound += ShuffleAnimation;
+    }
+
+    private void OnDisable()
+    {
+        EventBus.RestartRound -= ShuffleAnimation;
+    }
+
     private void Start()
+    {
+        ShuffleAnimation();
+    }
+
+    public void ShuffleAnimation()
     {
         startPosition = new Vector3(0f, 0f, 0f);
         var targetPos = new Vector3(0f, 6f, 0f);
@@ -24,10 +41,14 @@ public class CardPollAnimation : MonoBehaviour
         cardsMoveSequence.OnPlay(() =>
         {
             cardHandler.cardCollider.enabled = false;
+            cardCollider.enabled = false;
+            card._cardNumber.enabled = false;
             
         });
         cardsMoveSequence.OnComplete(() => {
             cardHandler.cardCollider.enabled = true;
+            cardCollider.enabled = true;
+            card._cardNumber.enabled = true;
         });
     }
 }
