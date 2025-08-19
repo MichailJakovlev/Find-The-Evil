@@ -112,8 +112,10 @@ public class CardFlipAnimation : MonoBehaviour
             flipCardSequence
                 .Append(cardBack.DORotate(new Vector3(0f, -90f, 0f), flipDuration, RotateMode.Fast).From(new Vector3(0f, 0f, 0f)))
                 .Join(cardStrokeBack.DORotate(new Vector3(0f, -90f, 0f), flipDuration, RotateMode.Fast).From(new Vector3(0f, 0f, 0f)))
+                .Join(cardShadow.DORotate(new Vector3(0f, -90f, 0f), flipDuration, RotateMode.Fast).From(new Vector3(0f, 0f, 0f)))
                 .Append(cardFront.DORotate(new Vector3(0f, 0f, 0f), flipDuration, RotateMode.Fast).From(new Vector3(0f, 90f, 0f)))
                 .Join(cardStrokeFront.DORotate(new Vector3(0f, 0f, 0f), flipDuration, RotateMode.Fast).From(new Vector3(0f, 90f, 0f)))
+                .Join(cardShadow.DORotate(new Vector3(0f, 0f, 0f), flipDuration, RotateMode.Fast).From(new Vector3(0f, -90f, 0f)))
                 .Join(cardBackSpriteRenderer.DOFade(0f, 0f))
                 .Join(cardImageSpriteRenderer.DOFade(1f, 0f));
                         
@@ -137,8 +139,10 @@ public class CardFlipAnimation : MonoBehaviour
         flipCardSequence
             .Append(cardFront.DORotate(new Vector3(0f, 90f, 0f), flipDuration, RotateMode.Fast).From(new Vector3(0f, 0f, 0f)))
             .Join(cardStrokeFront.DORotate(new Vector3(0f, 90f, 0f), flipDuration, RotateMode.Fast).From(new Vector3(0f, 0f, 0f)))
+            .Join(cardShadow.DORotate(new Vector3(0f, 0f, 0f), flipDuration, RotateMode.Fast).From(new Vector3(0f, -90f, 0f)))
             .Append(cardBack.DORotate(new Vector3(0f, 0f, 0f), flipDuration, RotateMode.Fast).From(new Vector3(0f, -90f, 0f)))
             .Join(cardStrokeBack.DORotate(new Vector3(0f, 0f, 0f), flipDuration, RotateMode.Fast).From(new Vector3(0f, -90f, 0f)))
+            .Join(cardShadow.DORotate(new Vector3(0f, -90f, 0f), flipDuration, RotateMode.Fast).From(new Vector3(0f, 0f, 0f)))
             .Join(cardImageSpriteRenderer.DOFade(0f, 0f))
             .Join(cardBackSpriteRenderer.DOFade(1f, 0f));
                     
