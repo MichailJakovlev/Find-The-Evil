@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public abstract class Role : MonoBehaviour
+public class Role : MonoBehaviour
 {   
    [HideInInspector]
    public int _cardNumber;
@@ -28,20 +28,17 @@ public abstract class Role : MonoBehaviour
       return " ";
    }
 
-   public virtual void UseAbility()
-   {
-      
-   }
+   public virtual void UseAbility() { }
 
    public virtual string SayTruth()
    {
       return " ";
    }
 
-   public virtual string SayLie()
+   public virtual string SayLie(int evilCardNumber)
    {
       return " "; 
    }
    
-   public virtual void Ability() { }
+   public virtual void Ability(Card card) { }
 }

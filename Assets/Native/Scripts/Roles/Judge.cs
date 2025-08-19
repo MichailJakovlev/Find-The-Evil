@@ -1,39 +1,48 @@
 using UnityEngine;
 
 public class Judge : Role
-{
-    public override string SendMessage()
+{ 
+    public override void UseAbility()
     {
-        if (_roleType == "Evil" || _cardStatus == "corrupted")
+        _abilityInfo.ShowAbilityInfo("Pick 1 card", gameObject.GetComponentInParent<Card>());
+    }
+
+    public string SayAbilityTruth(Card card)
+    {
+        if (card._cardRole._roleType == "Evil" || _cardStatus == "Corrupted")
         {
-            return SayLie();
+            return card._cardRole._cardNumber + " is Lying";
         }
         else
         {
-            return SayTruth();
+            return card._cardRole._cardNumber + " said Truth";
         }
     }
 
-    public override void UseAbility()
+    public string SayAbilityLie(Card card)
     {
-        Debug.Log("Ability");
-        _abilityInfo.ShowAbilityInfo("Pick 1 card");
+        if (card._cardRole._roleType == "Evil" || _cardStatus == "Corrupted")
+        {
+            return card._cardRole._cardNumber + " said Truth";
+        }
+        else
+        {
+            return card._cardRole._cardNumber + " is Lying";
+        }
     }
 
-    public override string SayTruth()
+    public override void Ability(Card card)
     {
-        int rand = Random.Range(0, _roleDirector.villagers.Count);
-        return "#" + _roleDirector.villagers[rand]._cardRole._cardNumber + " is real " + _roleDirector.villagers[rand]._cardRole._cardName;
-    }
-
-    public override string SayLie()
-    {
-        int rand = Random.Range(0, _roleDirector.evils.Count);
-        return "#" + _roleDirector.evils[rand]._cardRole._cardNumber + " is real " + _roleDirector.evils[rand]._cardRole._substituteRole._cardName;
-    }
-
-    public override void Ability()
-    {
-        SendMessage();
+        gameObject.GetComponentInParent<Card>()._cardMessage.gameObject.SetActive(true);
+        if (_roleType == "Evil" || _cardStatus == "Corrupted")
+        {
+            gameObject.GetComponentInParent<Card>()._cardMessageText.text = SayAbilityLie(card);
+        }
+        else
+        {
+            gameObject.GetComponentInParent<Card>()._cardMessageText.text = SayAbilityTruth(card);
+        }
+        gameObject.GetComponentInParent<CardHandler>().isAbilityUsed = true;
+        _abilityInfo.HideAbilityInfo();
     }
 }
