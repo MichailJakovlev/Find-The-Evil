@@ -572,6 +572,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d8a14ee114b0494380c514a4b9975c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  roles:
+  - {fileID: -5614131095109936981, guid: beb32d6ce6f48ed4ca8f488415ac9163, type: 3}
+  - {fileID: -6315115466268026975, guid: 2912d9a24d59d6249a6da68b94039d54, type: 3}
+  - {fileID: -2343583852235341154, guid: 26fa64a12bc341c48861f36110ac5d7c, type: 3}
+  - {fileID: 5351388700702287351, guid: da1bb15a99b1d5c47a9aa25e9f4f695c, type: 3}
   villagersRoles: []
   outcastsRoles: []
   evilsRoles: []
