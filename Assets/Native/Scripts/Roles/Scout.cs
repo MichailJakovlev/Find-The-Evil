@@ -16,14 +16,6 @@ public class Scout : Role
         }
     }
 
-    public override void UseAbility()
-    {
-        if (_canUseAbility && _cardStatus != "corrupted")
-        {
-            Ability();
-        }
-    }
-
     public override string SayTruth()
     {
         var evilsList = _roleDirector.evils;
@@ -65,12 +57,8 @@ public class Scout : Role
         }
 
         countEvelList.Remove(evelCount);
-        Debug.Log("evilCardNumber: " + evilCardNumber);
-        foreach (var evil in countEvelList) Debug.Log(evil);
         var randomIndex = Random.Range(0, countEvelList.Count);
         
         return $"{countEvelList[randomIndex]} Evil adjacent to me";
     }
-   
-    public override void Ability() { }
 }

@@ -14,14 +14,6 @@ public class Peasant : Role
         }
     }
 
-    public override void UseAbility()
-    {
-        if (_canUseAbility && _cardStatus != "corrupted")
-        {
-            Ability();
-        }
-    }
-
     public override string SayTruth()
     {
         return "I am villager";
@@ -31,6 +23,4 @@ public class Peasant : Role
     {
         return "I am villager";
     }
-   
-    public override void Ability() { }
 }

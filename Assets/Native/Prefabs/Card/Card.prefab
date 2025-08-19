@@ -307,7 +307,7 @@ MonoBehaviour:
   _cardMessageText: {fileID: 0}
   _cardMessage: {fileID: 7653512271614943647, guid: 6b561acb4326cc44a81d105e317da1f7, type: 3}
   cardId: 0
-  _cardHandler: {fileID: 2249435171165207895}
+  _cardFlipAnimation: {fileID: 7790356706581112280}
 --- !u!1 &1922786642852826493
 GameObject:
   m_ObjectHideFlags: 0
@@ -766,6 +766,7 @@ GameObject:
   - component: {fileID: 7814352997113826591}
   - component: {fileID: 2249435171165207895}
   - component: {fileID: 5213599307979857580}
+  - component: {fileID: 7790356706581112280}
   - component: {fileID: 7299606101661253729}
   m_Layer: 0
   m_Name: CardItem
@@ -861,20 +862,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 145dcfbc1690de64a9bc9f8ae5f06830, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardFront: {fileID: 4862130862062704885}
-  cardBack: {fileID: 1087619628072576196}
-  cardStrokeFront: {fileID: 3928137645046224389}
-  cardStrokeBack: {fileID: 8741983258812136206}
-  cardCollider: {fileID: 7299606101661253729}
+  cardFlipAnimation: {fileID: 7790356706581112280}
   card: {fileID: -2230272936117926733}
-  animationDuration: 0.15
-  OnPointerEnterMoveY: 0.4
-  OnPointerExitScaleDuration: 0.3
-  cardBackSpriteRenderer: {fileID: 0}
-  cardImageSpriteRenderer: {fileID: 0}
-  cardStrokeFrontSpriteRenderer: {fileID: 0}
-  cardStrokeBackSpriteRenderer: {fileID: 0}
   isKillMode: 0
+  isAbilityUsed: 0
+  isFlipped: 0
 --- !u!114 &5213599307979857580
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -890,8 +882,35 @@ MonoBehaviour:
   moveDuration: 0.2
   moveDelayMultiply: 0.1
   card: {fileID: -2230272936117926733}
+  cardFlipAnimation: {fileID: 7790356706581112280}
+  cardCollider: {fileID: 7299606101661253729}
+--- !u!114 &7790356706581112280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5798342063213711526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37130fd4e4afb0445af15e5a053be269, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardFront: {fileID: 4862130862062704885}
+  cardBack: {fileID: 1087619628072576196}
+  cardStrokeFront: {fileID: 3928137645046224389}
+  cardStrokeBack: {fileID: 8741983258812136206}
+  cardItem: {fileID: 5798342063213711526}
+  card: {fileID: -2230272936117926733}
   cardHandler: {fileID: 2249435171165207895}
   cardCollider: {fileID: 7299606101661253729}
+  animationDuration: 0.1
+  OnPointerEnterMoveY: 0.4
+  OnPointerExitScaleDuration: 0.3
+  cardBackSpriteRenderer: {fileID: 8195751404012808257}
+  cardImageSpriteRenderer: {fileID: 1396147225177449375}
+  cardStrokeFrontSpriteRenderer: {fileID: 694560880299330704}
+  cardStrokeBackSpriteRenderer: {fileID: 1985554997588725915}
 --- !u!61 &7299606101661253729
 BoxCollider2D:
   m_ObjectHideFlags: 0

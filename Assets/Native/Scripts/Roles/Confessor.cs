@@ -1,10 +1,8 @@
-using UnityEngine;
-
 public class Confessor : Role
 {
     public override string SendMessage()
     {
-        if (_roleType == "Evil" || _cardStatus == "corrupted")
+        if (_roleType == "Evil" || _cardStatus == "Corrupted")
         {
             return SayLie(_cardNumber);
         }
@@ -13,15 +11,7 @@ public class Confessor : Role
             return SayTruth();
         }
     }
-
-    public override void UseAbility()
-    {
-        if (_canUseAbility && _cardStatus != "corrupted")
-        {
-            Ability();
-        }
-    }
-
+    
     public override string SayTruth()
     {
         return "I am good";
@@ -31,6 +21,4 @@ public class Confessor : Role
     {
         return "I am dizzy"; 
     }
-   
-    public override void Ability() { }
 }

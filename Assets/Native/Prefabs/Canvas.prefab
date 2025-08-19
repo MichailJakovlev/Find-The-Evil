@@ -1239,6 +1239,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _textInfo: {fileID: 4931789557543043381}
   _background: {fileID: 6154516010182632385}
+  _eventBus: {fileID: 0}
 --- !u!1 &2452229103781440783
 GameObject:
   m_ObjectHideFlags: 0

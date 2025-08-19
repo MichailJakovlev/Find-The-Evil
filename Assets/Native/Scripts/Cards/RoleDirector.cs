@@ -4,8 +4,18 @@ using Random = UnityEngine.Random;
 
 public class RoleDirector : MonoBehaviour
 {
+    [Header("Delete This")] // Временное поле
     [SerializeField] private List<Role> roles;
+    
+    [Header("Roles")]
+    [SerializeField] private List<Role> villagersRoles;
+    [SerializeField] private List<Role> outcastsRoles;
+    [SerializeField] private List<Role> evilsRoles;
+    
+    [Header("Object Links")]
     public CardPool cardPool;
+    
+    [Header("Created Roles")]
     public List<Card> villagers;
     public List<Card> outcasts;
     public List<Card> evils;
@@ -17,11 +27,12 @@ public class RoleDirector : MonoBehaviour
         _abilityInfo = FindObjectOfType<AbilityInfo>();
         for (int i = 0; i < cardPool._cardAmount; i++)
         {
-            cardPool.cards[i]._cardRole = Instantiate(roles[Random.Range(0, roles.Count)], transform);
+           cardPool.cards[i]._cardRole = Instantiate(roles[Random.Range(0, roles.Count)], cardPool.cards[i].transform.GetChild(0).transform);
             
             if (cardPool.cards[i]._cardRole._roleType == "Evil")
             {
                 evils.Add(cardPool.cards[i]);
+
             }
             else if(cardPool.cards[i]._cardRole._roleType == "Outcast")
             {
@@ -47,10 +58,45 @@ public class RoleDirector : MonoBehaviour
         }
     }
 
+    public void CreateEvils(int evilsAmount)
+    {
+        for (int i = 0; i < evilsAmount; i++)
+        {
+            cardPool.cards[i]._cardRole = Instantiate(evilsRoles[Random.Range(0, evilsRoles.Count)], cardPool.cards[i].transform.GetChild(0).transform);
+        }
+    }
+
+    public void CreateOutcasts(int outcastsAmount)
+    {
+        
+    }
+
+    public void CreateVillagers(int villagersAmount)
+    {
+        
+    }
+    
     public void ClearRoles()
     {
+        // for (int i = 0; i < villagers.Count; i++)
+        // {
+        //     Destroy(villagers[i]);
+        // }
+            
         villagers.Clear();
+        
+        // for (int i = 0; i < outcasts.Count; i++)
+        // {
+        //     Destroy(outcasts[i]);
+        // }
+        
         outcasts.Clear();
+        
+        // for (int i = 0; i < evils.Count; i++)
+        // {
+        //     Destroy(evils[i]);
+        // }
+       
         evils.Clear();
     }
 }

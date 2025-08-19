@@ -10,7 +10,7 @@ public class CardPoolAnimation : MonoBehaviour
     
     [Header("Dependence")]
     [SerializeField] private Card card;
-    [SerializeField] private CardHandler cardHandler;
+    [SerializeField] private CardFlipAnimation cardFlipAnimation;
     [SerializeField] private Collider2D cardCollider;
     
     private Vector3 startPosition;
@@ -40,13 +40,13 @@ public class CardPoolAnimation : MonoBehaviour
             .Append(transform.DOLocalMove(targetPos, moveDuration).SetDelay(card.cardId * moveDelayMultiply).From(startPosition).SetEase(Ease.InOutSine));
         cardsMoveSequence.OnPlay(() =>
         {
-            cardHandler.cardCollider.enabled = false;
+            cardFlipAnimation.cardCollider.enabled = false;
             cardCollider.enabled = false;
             card._cardNumber.enabled = false;
             
         });
         cardsMoveSequence.OnComplete(() => {
-            cardHandler.cardCollider.enabled = true;
+            cardFlipAnimation.cardCollider.enabled = true;
             cardCollider.enabled = true;
             card._cardNumber.enabled = true;
         });

@@ -12,6 +12,8 @@ public class EventBus : MonoBehaviour , IEventBus
     public static event Action KillModeOn;
     public static event Action KillModeOff;
     public static event Action RestartRound;
+    public static event Action<Card> StartUsingAbility;
+    public static event Action StopUsingAbility;
     
     public void StartGameEvent() => StartGame?.Invoke();
     public void StopGameEvent() => StopGame?.Invoke();
@@ -19,4 +21,6 @@ public class EventBus : MonoBehaviour , IEventBus
     public void KillModeOnEvent() => KillModeOn?.Invoke();
     public void KillModeOffEvent() => KillModeOff?.Invoke();
     public void RestartRoundEvent() => RestartRound?.Invoke();
+    public void StartUsingAbilityEvent(Card usedCard) => StartUsingAbility?.Invoke(usedCard);
+    public void StopUsingAbilityEvent() => StopUsingAbility?.Invoke();
 }

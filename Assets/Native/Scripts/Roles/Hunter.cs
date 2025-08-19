@@ -16,14 +16,6 @@ public class Hunter : Role
         }
     }
 
-    public override void UseAbility()
-    {
-        if (_canUseAbility && _cardStatus != "corrupted")
-        {
-            Ability();
-        }
-    }
-
     public override string SayTruth()
     {
         var evilsList = _roleDirector.evils;
@@ -85,6 +77,4 @@ public class Hunter : Role
         var randomIndex = Random.Range(0, differenceList.Count);
         return $"I am {differenceList[randomIndex]} card away from closest Evil";
     }
-   
-    public override void Ability() { }
 }

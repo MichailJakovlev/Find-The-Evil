@@ -12,7 +12,7 @@ public class Card : MonoBehaviour
     public CardMessage _cardMessage;
     public int cardId;
     
-    [SerializeField] private CardHandler _cardHandler;
+    [SerializeField] private CardFlipAnimation _cardFlipAnimation;
     private UIHandler _uiHandler;
     public void OnEnable()
     {
@@ -57,8 +57,8 @@ public class Card : MonoBehaviour
         {
             _cardName.text = _cardRole._cardName;
             _cardName.color = Color.white;
-            _cardHandler.cardStrokeFrontSpriteRenderer.color = Color.black;
-            _cardHandler.cardImageSpriteRenderer.color = Color.red;
+            _cardFlipAnimation.cardStrokeFrontSpriteRenderer.color = Color.black;
+            _cardFlipAnimation.cardImageSpriteRenderer.color = Color.red;
         }
         else
         {
@@ -70,8 +70,8 @@ public class Card : MonoBehaviour
     public void ClearCard() 
     {
         _cardName.color = Color.black;
-        _cardHandler.cardStrokeFrontSpriteRenderer.color = Color.white;
-        _cardHandler.cardImageSpriteRenderer.color = Color.white;
+        _cardFlipAnimation.cardStrokeFrontSpriteRenderer.color = Color.white;
+        _cardFlipAnimation.cardImageSpriteRenderer.color = Color.white;
     }
 }
 
