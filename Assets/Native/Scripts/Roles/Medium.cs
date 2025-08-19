@@ -1,4 +1,3 @@
-using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class Medium : Role
@@ -17,13 +16,13 @@ public class Medium : Role
     
     public override string SayTruth()
     {
-        int rand = Random.Range(0, _roleDirector.villagers.Count);
-        return "#" + _roleDirector.villagers[rand]._cardRole._cardNumber + " is real " + _roleDirector.villagers[rand]._cardRole._cardName;
+        int rand = Random.Range(0, _roleDirector.villagersCards.Count);
+        return "#" + _roleDirector.villagersCards[rand]._cardRole._cardNumber + " is real " + _roleDirector.villagersCards[rand]._cardRole._cardName;
     }
 
     public override string SayLie(int evilCardNumber)
     {
-        int rand = Random.Range(0, _roleDirector.evils.Count);
-        return "#" + _roleDirector.evils[rand]._cardRole._cardNumber + " is real " + _roleDirector.evils[rand]._cardRole._substituteRole._cardName;
+        int rand = Random.Range(0, _roleDirector.evilsCards.Count);
+        return "#" + _roleDirector.evilsCards[rand]._cardRole._cardNumber + " is real " + _roleDirector.evilsCards[rand]._cardRole._substituteRole._cardName;
     }
 }

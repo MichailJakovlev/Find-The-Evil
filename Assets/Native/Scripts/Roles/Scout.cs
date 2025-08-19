@@ -18,7 +18,7 @@ public class Scout : Role
 
     public override string SayTruth()
     {
-        var evilsList = _roleDirector.evils;
+        var evilsList = _roleDirector.evilsCards;
         var cardAmount = _roleDirector.cardPool._cardAmount;
         var evelCount = 0;
         
@@ -39,7 +39,7 @@ public class Scout : Role
 
     public override string SayLie(int evilCardNumber)
     {
-        var evilsList = _roleDirector.evils;
+        var evilsList = _roleDirector.evilsCards;
         var cardAmount = _roleDirector.cardPool._cardAmount;
         var evelCount = 0;
         List<int> countEvelList = new List<int>() { 0, 1, 2 };

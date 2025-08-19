@@ -1,11 +1,13 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class RoleDirector : MonoBehaviour
 {
     [Header("Delete This")] // Временное поле
-    [SerializeField] private List<Role> roles;
+    [SerializeField] private int villagersAmount;
+    [SerializeField] private int outcastsAmount;
+    [SerializeField] private int evilsAmount;
     
     [Header("Roles")]
     [SerializeField] private List<Role> villagersRoles;
@@ -14,89 +16,126 @@ public class RoleDirector : MonoBehaviour
     
     [Header("Object Links")]
     public CardPool cardPool;
-    
+
     [Header("Created Roles")]
-    public List<Card> villagers;
-    public List<Card> outcasts;
-    public List<Card> evils;
+    public List<Role> createdVillagersRoles;
+    public List<Role> createdOutcastsRoles;
+    public List<Role> createdEvilsRoles;
+    
+    [Header("Created Cards")] 
+    public List<Card> villagersCards;
+    public List<Card> outcastsCards;
+    public List<Card> evilsCards;
 
     private AbilityInfo _abilityInfo;
-    
+    private List<Role> mergedList;
+
     public void AssignRoles()
     {
         _abilityInfo = FindObjectOfType<AbilityInfo>();
+        
+        CreateVillagers(villagersAmount);
+        CreateOutcasts(outcastsAmount);
+        CreateEvils(evilsAmount);
+        
+        mergedList = createdVillagersRoles.Concat(createdOutcastsRoles).ToList();
+        ImplimentEvil();
+        
         for (int i = 0; i < cardPool._cardAmount; i++)
         {
-           cardPool.cards[i]._cardRole = Instantiate(roles[Random.Range(0, roles.Count)], cardPool.cards[i].transform.GetChild(0).transform);
-            
+            int rand = Random.Range(0, cardPool._cardAmount - i); 
+            cardPool.cards[i]._cardRole = Instantiate(mergedList[rand], cardPool.cards[i].transform.GetChild(0).transform);
+            mergedList.RemoveAt(rand);
+        }
+
+        for (int i = 0; i < cardPool._cardAmount; i++)
+        {
             if (cardPool.cards[i]._cardRole._roleType == "Evil")
             {
-                evils.Add(cardPool.cards[i]);
-
+                evilsCards.Add(cardPool.cards[i]);
+                
             }
-            else if(cardPool.cards[i]._cardRole._roleType == "Outcast")
+            else if (cardPool.cards[i]._cardRole._roleType == "Outcast")
             {
-                outcasts.Add(cardPool.cards[i]);
+                outcastsCards.Add(cardPool.cards[i]);
             }
             else
             {
-                villagers.Add(cardPool.cards[i]);
+                villagersCards.Add(cardPool.cards[i]);
             }
-        }
-        
-        for (int i = 0; i < evils.Count; i++)
-        {
-            evils[i]._cardRole._substituteRole = villagers[Random.Range(0, villagers.Count)]._cardRole;
         }
         
         for (int i = 0; i < cardPool._cardAmount; i++)
         {
             cardPool.cards[i].Init();
             cardPool.cards[i]._cardRole._roleDirector = this;
+            cardPool.cards[i]._cardRole._substituteRole._roleDirector = this;
             cardPool.cards[i]._cardRole._abilityInfo = _abilityInfo;
             cardPool.cards[i]._cardRole._cardNumber = (cardPool._cardAmount - i);
         }
     }
-
-    public void CreateEvils(int evilsAmount)
+    
+    public void CreateVillagers(int villagersAmount)
     {
-        for (int i = 0; i < evilsAmount; i++)
+        for (int i = 0; i < villagersAmount; i++)
         {
-            cardPool.cards[i]._cardRole = Instantiate(evilsRoles[Random.Range(0, evilsRoles.Count)], cardPool.cards[i].transform.GetChild(0).transform);
+            int rand = Random.Range(0, villagersAmount - i);
+            createdVillagersRoles.Add(villagersRoles[rand]);
+            villagersRoles.RemoveAt(rand);
         }
     }
 
     public void CreateOutcasts(int outcastsAmount)
     {
-        
+        for (int i = 0; i < outcastsAmount; i++)
+        {
+            int rand = Random.Range(0, outcastsAmount - i);
+            createdOutcastsRoles.Add(outcastsRoles[rand]);
+            outcastsRoles.RemoveAt(rand);
+        }
     }
 
-    public void CreateVillagers(int villagersAmount)
+    public void CreateEvils(int evilsAmount)
     {
-        
+        for (int i = 0; i < this.evilsAmount; i++)
+        {
+            int rand = Random.Range(0, evilsAmount - i);
+            createdEvilsRoles.Add(evilsRoles[rand]);
+            evilsRoles.RemoveAt(rand);
+        }
+    }
+
+    public void ImplimentEvil()
+    {
+        for (int i = 0; i < createdEvilsRoles.Count; i++)
+        {
+            Role role = Instantiate(mergedList[i]);
+            mergedList[i] = Instantiate(createdEvilsRoles[i]);
+            mergedList[i]._substituteRole = role;
+        }
     }
     
     public void ClearRoles()
     {
-        // for (int i = 0; i < villagers.Count; i++)
-        // {
-        //     Destroy(villagers[i]);
-        // }
-            
-        villagers.Clear();
+        for (int i = 0; i < createdVillagersRoles.Count; i++)
+        {
+            villagersRoles.Add(createdVillagersRoles[i]);
+        }
+        createdVillagersRoles.Clear();
+        villagersCards.Clear();
         
-        // for (int i = 0; i < outcasts.Count; i++)
-        // {
-        //     Destroy(outcasts[i]);
-        // }
+        for (int i = 0; i < createdOutcastsRoles.Count; i++)
+        {
+            outcastsRoles.Add(createdOutcastsRoles[i]);
+        }
+        createdOutcastsRoles.Clear();
+        outcastsCards.Clear();
         
-        outcasts.Clear();
-        
-        // for (int i = 0; i < evils.Count; i++)
-        // {
-        //     Destroy(evils[i]);
-        // }
-       
-        evils.Clear();
+        for (int i = 0; i < createdEvilsRoles.Count; i++)
+        {
+            evilsRoles.Add(createdEvilsRoles[i]);
+        }
+        createdEvilsRoles.Clear();
+        evilsCards.Clear();
     }
 }

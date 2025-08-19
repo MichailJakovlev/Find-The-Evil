@@ -18,7 +18,7 @@ public class Hunter : Role
 
     public override string SayTruth()
     {
-        var evilsList = _roleDirector.evils;
+        var evilsList = _roleDirector.evilsCards;
         var minDistance = _roleDirector.cardPool._cardAmount;
 
         foreach (var evil in evilsList)
@@ -40,9 +40,9 @@ public class Hunter : Role
 
     public override string SayLie(int evilCardNumber)
     {
-        var evilsList = _roleDirector.evils;
-        var villagerList = _roleDirector.villagers;
-        var outcastList = _roleDirector.outcasts;
+        var evilsList = _roleDirector.evilsCards;
+        var villagerList = _roleDirector.villagersCards;
+        var outcastList = _roleDirector.outcastsCards;
         var mergedLists = villagerList.Concat(outcastList).ToList();
         List<int> goodListDistance = new List<int>();
         List<int> evilListDistance = new List<int>();
