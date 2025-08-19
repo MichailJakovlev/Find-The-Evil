@@ -153,8 +153,8 @@ MonoBehaviour:
   cardMessages: []
   roleDirector: {fileID: 2141178237}
   cards: []
-  _maxCardAmount: 12
-  _cardAmount: 10
+  _maxCardAmount: 6
+  _cardAmount: 6
 --- !u!4 &88701700
 Transform:
   m_ObjectHideFlags: 0
@@ -577,13 +577,31 @@ MonoBehaviour:
   - {fileID: -6315115466268026975, guid: 2912d9a24d59d6249a6da68b94039d54, type: 3}
   - {fileID: -2343583852235341154, guid: 26fa64a12bc341c48861f36110ac5d7c, type: 3}
   - {fileID: 5351388700702287351, guid: da1bb15a99b1d5c47a9aa25e9f4f695c, type: 3}
-  villagersRoles: []
+  villagersAmount: 6
+  outcastsAmount: 0
+  evilsAmount: 0
+  villagers:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  outcasts: []
+  evils: []
+  villagersRoles:
+  - {fileID: -5614131095109936981, guid: beb32d6ce6f48ed4ca8f488415ac9163, type: 3}
+  - {fileID: 8363844532616324775, guid: ad4f7f9472013c948a60eadc0d34a9f5, type: 3}
+  - {fileID: -2343583852235341154, guid: 26fa64a12bc341c48861f36110ac5d7c, type: 3}
+  - {fileID: -6315115466268026975, guid: 2912d9a24d59d6249a6da68b94039d54, type: 3}
+  - {fileID: 2601826140513081882, guid: b27ed2bc31559c34b8585e60e08740d3, type: 3}
+  - {fileID: 1666300796620940851, guid: cab2aec2244d2744d818c2d0fd4faf1a, type: 3}
   outcastsRoles: []
   evilsRoles: []
   cardPool: {fileID: 88701699}
-  villagers: []
-  outcasts: []
-  evils: []
+  createdVillagersRoles: []
+  createdOutcastsRoles: []
+  createdEvilsRoles: []
 --- !u!4 &2141178238
 Transform:
   m_ObjectHideFlags: 0

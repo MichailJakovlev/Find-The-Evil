@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class Role : MonoBehaviour
 {   
@@ -14,7 +15,7 @@ public class Role : MonoBehaviour
    public string _roleType;
    public Sprite _roleImage;
    public bool _canUseAbility;
-
+   
    private void Awake()
    {
       if (_roleType == "Villager")

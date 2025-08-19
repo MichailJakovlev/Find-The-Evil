@@ -106,6 +106,6 @@ public class CardPool : MonoBehaviour
             cardMessages[i].SetActive(false);   
         }
         roleDirector.ClearRoles();
-        Get(10);
+        Get(6);
     }
 }
