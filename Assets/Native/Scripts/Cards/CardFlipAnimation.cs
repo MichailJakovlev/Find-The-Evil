@@ -8,6 +8,7 @@ public class CardFlipAnimation : MonoBehaviour
     [SerializeField] private Transform cardBack;
     [SerializeField] private Transform cardStrokeFront;
     [SerializeField] private Transform cardStrokeBack;
+    [SerializeField] private Transform cardShadow;
     [SerializeField] private GameObject cardItem;
     
     [Header("Object Links")]
@@ -17,10 +18,18 @@ public class CardFlipAnimation : MonoBehaviour
     [Header("Collider")]
     public BoxCollider2D cardCollider;
 
-    [Header("Settings")]
-    [SerializeField] private float animationDuration = 0.1f;
+    [Header("Durations")]
+    [SerializeField] private float flipDuration = 0.1f;
+    [SerializeField] private float moveDuration = 0.1f;
+    [SerializeField] private float onPointerEnterScaleDuration = 0.1f;
+    [SerializeField] private float onPointerExitScaleDuration = 0.3f;
+    
+    [Header("Scales")]
+    [SerializeField] private float cardPointerEnterScale = 1.2f;
+    [SerializeField] private float shadowPointerEnterScale = 1.1f;
+    
+    [Header("Move Distance")]
     [SerializeField] private float OnPointerEnterMoveY = 0.4f;
-    [SerializeField] private float OnPointerExitScaleDuration = 0.3f;
      
     [HideInInspector]
     public SpriteRenderer cardBackSpriteRenderer;
@@ -31,26 +40,32 @@ public class CardFlipAnimation : MonoBehaviour
     [HideInInspector]
     public SpriteRenderer cardStrokeBackSpriteRenderer;
     
+    private Sequence hoverAnimationSequence;
+    
     private bool isFlipped = false;
-    private Vector3 startPosition;    
+    private Vector3 cardStartPosition;
     
     private void Start()
     {
-        startPosition = cardBack.localPosition;
+        cardStartPosition = cardBack.localPosition;
         cardBackSpriteRenderer = cardBack.GetComponent<SpriteRenderer>();
         cardImageSpriteRenderer = cardFront.GetComponent<SpriteRenderer>();
         cardStrokeFrontSpriteRenderer = cardStrokeFront.GetComponent<SpriteRenderer>();
         cardStrokeBackSpriteRenderer = cardStrokeBack.GetComponent<SpriteRenderer>();
     }
         
-    public void OnCardEnter() 
+    public void OnCardEnter()
     {
-        transform.DOScale(new Vector3(1.15f, 1.15f, 1.15f), animationDuration).From(new Vector3(1.1f, 1.1f, 1.1f));
-                    
-        cardBack.DOLocalMove(startPosition + new Vector3(0f, OnPointerEnterMoveY, 0f), animationDuration).From(startPosition);
-        cardFront.DOLocalMove(startPosition + new Vector3(0f, OnPointerEnterMoveY, 0f), animationDuration).From(startPosition);
-        cardStrokeFront.DOLocalMove(startPosition + new Vector3(0f, OnPointerEnterMoveY, 0f), animationDuration).From(startPosition);
-        cardStrokeBack.DOLocalMove(startPosition + new Vector3(0f, OnPointerEnterMoveY, 0f), animationDuration).From(startPosition);
+        KillCurrentAnimationSequence();
+        
+        hoverAnimationSequence = DOTween.Sequence();
+        hoverAnimationSequence
+            .Append(transform.DOScale(new Vector3(cardPointerEnterScale, cardPointerEnterScale, cardPointerEnterScale), onPointerEnterScaleDuration).From(new Vector3(1.1f, 1.1f, 1.1f)))
+            .Join(cardShadow.DOScale(new Vector3(shadowPointerEnterScale, shadowPointerEnterScale, shadowPointerEnterScale), onPointerEnterScaleDuration).From(new Vector3(1f, 1f, 1f)))
+            .Join(cardBack.DOLocalMove(new Vector3(0f, OnPointerEnterMoveY, 0f), moveDuration).From(cardStartPosition))
+            .Join(cardFront.DOLocalMove(new Vector3(0f, OnPointerEnterMoveY, 0f), moveDuration).From(cardStartPosition))
+            .Join(cardStrokeFront.DOLocalMove(new Vector3(0f, OnPointerEnterMoveY, 0f), moveDuration).From(cardStartPosition))
+            .Join(cardStrokeBack.DOLocalMove(new Vector3(0f, OnPointerEnterMoveY, 0f), moveDuration).From(cardStartPosition));
                     
         if (!isFlipped)
         {
@@ -66,13 +81,17 @@ public class CardFlipAnimation : MonoBehaviour
     
     public void OnCardExit()
     {
-        transform.DOScale(new Vector3(1.1f, 1.1f, 1.1f), OnPointerExitScaleDuration);
-                
-        cardBack.DOLocalMove(startPosition, animationDuration);
-        cardFront.DOLocalMove(startPosition, animationDuration);
-        cardStrokeFront.DOLocalMove(startPosition, animationDuration);
-        cardStrokeBack.DOLocalMove(startPosition, animationDuration);
-                       
+        KillCurrentAnimationSequence();
+        
+        hoverAnimationSequence = DOTween.Sequence();
+        hoverAnimationSequence
+            .Append(transform.DOScale(new Vector3(1.1f, 1.1f, 1.1f), onPointerExitScaleDuration))
+            .Join(cardShadow.DOScale(new Vector3(1f, 1f, 1f), onPointerExitScaleDuration))
+            .Join(cardBack.DOLocalMove(cardStartPosition, moveDuration))
+            .Join(cardFront.DOLocalMove(cardStartPosition, moveDuration))
+            .Join(cardStrokeFront.DOLocalMove(cardStartPosition, moveDuration))
+            .Join(cardStrokeBack.DOLocalMove(cardStartPosition, moveDuration));
+        
         if (!isFlipped)
         {
             // cardStrokeBackSpriteRenderer.DOFade(0f, animationDuration);
@@ -91,10 +110,10 @@ public class CardFlipAnimation : MonoBehaviour
         {
             Sequence flipCardSequence = DOTween.Sequence();
             flipCardSequence
-                .Append(cardBack.DORotate(new Vector3(0f, -90f, 0f), animationDuration, RotateMode.Fast).From(new Vector3(0f, 0f, 0f)))
-                .Join(cardStrokeBack.DORotate(new Vector3(0f, -90f, 0f), animationDuration, RotateMode.Fast).From(new Vector3(0f, 0f, 0f)))
-                .Append(cardFront.DORotate(new Vector3(0f, 0f, 0f), animationDuration, RotateMode.Fast).From(new Vector3(0f, 90f, 0f)))
-                .Join(cardStrokeFront.DORotate(new Vector3(0f, 0f, 0f), animationDuration, RotateMode.Fast).From(new Vector3(0f, 90f, 0f)))
+                .Append(cardBack.DORotate(new Vector3(0f, -90f, 0f), flipDuration, RotateMode.Fast).From(new Vector3(0f, 0f, 0f)))
+                .Join(cardStrokeBack.DORotate(new Vector3(0f, -90f, 0f), flipDuration, RotateMode.Fast).From(new Vector3(0f, 0f, 0f)))
+                .Append(cardFront.DORotate(new Vector3(0f, 0f, 0f), flipDuration, RotateMode.Fast).From(new Vector3(0f, 90f, 0f)))
+                .Join(cardStrokeFront.DORotate(new Vector3(0f, 0f, 0f), flipDuration, RotateMode.Fast).From(new Vector3(0f, 90f, 0f)))
                 .Join(cardBackSpriteRenderer.DOFade(0f, 0f))
                 .Join(cardImageSpriteRenderer.DOFade(1f, 0f));
                         
@@ -116,10 +135,10 @@ public class CardFlipAnimation : MonoBehaviour
     {
         Sequence flipCardSequence = DOTween.Sequence();
         flipCardSequence
-            .Append(cardFront.DORotate(new Vector3(0f, 90f, 0f), animationDuration, RotateMode.Fast).From(new Vector3(0f, 0f, 0f)))
-            .Join(cardStrokeFront.DORotate(new Vector3(0f, 90f, 0f), animationDuration, RotateMode.Fast).From(new Vector3(0f, 0f, 0f)))
-            .Append(cardBack.DORotate(new Vector3(0f, 0f, 0f), animationDuration, RotateMode.Fast).From(new Vector3(0f, -90f, 0f)))
-            .Join(cardStrokeBack.DORotate(new Vector3(0f, 0f, 0f), animationDuration, RotateMode.Fast).From(new Vector3(0f, -90f, 0f)))
+            .Append(cardFront.DORotate(new Vector3(0f, 90f, 0f), flipDuration, RotateMode.Fast).From(new Vector3(0f, 0f, 0f)))
+            .Join(cardStrokeFront.DORotate(new Vector3(0f, 90f, 0f), flipDuration, RotateMode.Fast).From(new Vector3(0f, 0f, 0f)))
+            .Append(cardBack.DORotate(new Vector3(0f, 0f, 0f), flipDuration, RotateMode.Fast).From(new Vector3(0f, -90f, 0f)))
+            .Join(cardStrokeBack.DORotate(new Vector3(0f, 0f, 0f), flipDuration, RotateMode.Fast).From(new Vector3(0f, -90f, 0f)))
             .Join(cardImageSpriteRenderer.DOFade(0f, 0f))
             .Join(cardBackSpriteRenderer.DOFade(1f, 0f));
                     
@@ -131,5 +150,16 @@ public class CardFlipAnimation : MonoBehaviour
         });
         isFlipped = false;
         cardHandler.isFlipped = false;
+    }
+    
+    private bool IsHoverAnimationSequence() => hoverAnimationSequence != null && hoverAnimationSequence.active;
+
+    private void KillCurrentAnimationSequence()
+    {
+        if (IsHoverAnimationSequence())
+        {
+            Debug.Log("KillCurrentAnimationSequence");
+            hoverAnimationSequence.Kill();
+        }
     }
 }
