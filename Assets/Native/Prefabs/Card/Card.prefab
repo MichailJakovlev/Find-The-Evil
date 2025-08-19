@@ -438,7 +438,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: 0, w: 0.1}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -993,9 +993,13 @@ MonoBehaviour:
   card: {fileID: -2230272936117926733}
   cardHandler: {fileID: 2249435171165207895}
   cardCollider: {fileID: 7299606101661253729}
-  animationDuration: 0.1
+  flipDuration: 0.15
+  moveDuration: 0.1
+  onPointerEnterScaleDuration: 0.1
+  onPointerExitScaleDuration: 0.3
+  cardPointerEnterScale: 1.2
+  shadowPointerEnterScale: 1.1
   OnPointerEnterMoveY: 0.4
-  OnPointerExitScaleDuration: 0.3
   cardBackSpriteRenderer: {fileID: 8195751404012808257}
   cardImageSpriteRenderer: {fileID: 1396147225177449375}
   cardStrokeFrontSpriteRenderer: {fileID: 694560880299330704}

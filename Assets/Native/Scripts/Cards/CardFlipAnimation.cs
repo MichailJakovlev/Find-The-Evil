@@ -124,7 +124,7 @@ public class CardFlipAnimation : MonoBehaviour
                 cardCollider.enabled = false;
             });
             flipCardSequence.OnComplete(() => {
-                cardCollider.enabled = true;     
+                cardCollider.enabled = true;
             });
             isFlipped = true;
             cardHandler.isFlipped = true;
@@ -158,7 +158,6 @@ public class CardFlipAnimation : MonoBehaviour
     {
         if (IsHoverAnimationSequence())
         {
-            Debug.Log("KillCurrentAnimationSequence");
             hoverAnimationSequence.Kill();
         }
     }
