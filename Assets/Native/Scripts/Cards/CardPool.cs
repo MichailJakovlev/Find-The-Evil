@@ -1,4 +1,3 @@
-using System;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -106,6 +105,6 @@ public class CardPool : MonoBehaviour
             cardMessages[i].SetActive(false);   
         }
         roleDirector.ClearRoles();
-        Get(6);
+        Get(_cardAmount);
     }
 }

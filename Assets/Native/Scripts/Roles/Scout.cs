@@ -6,7 +6,7 @@ public class Scout : Role
 {
     public override string SendMessage()
     {
-        if (_roleType == "Evil" || _cardStatus == "corrupted")
+        if (_roleType == "Evil" || _isCorrupted)
         {
             return SayLie(_cardNumber);
         }

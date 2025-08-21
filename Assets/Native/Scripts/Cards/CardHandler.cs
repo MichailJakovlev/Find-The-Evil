@@ -42,7 +42,6 @@ public class CardHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     {
         isUsingAbility = true;
         usedAbilityCard = card;
-        
     }
 
     private void StopUsingAbility()
@@ -89,9 +88,17 @@ public class CardHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
                 }
             }
 
-            else if(isFlipped && !isKillMode && isUsingAbility && !isAbilityUsed)
+            else if(isFlipped && !isKillMode && isUsingAbility)
             {
-                ability.SelectCard(card);
+                if (card._cardRole._roleType == "Evil")
+                {
+                    ability.SelectCard(card);
+                }
+                else
+                {
+                    ability.SelectCard(card);
+                }
+                
             }
 
             if (!isFlipped)

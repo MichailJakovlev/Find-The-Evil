@@ -2,7 +2,7 @@ public class Confessor : Role
 {
     public override string SendMessage()
     {
-        if (_roleType == "Evil" || _cardStatus == "Corrupted")
+        if (_roleType == "Evil" || _isCorrupted)
         {
             return SayLie(_cardNumber);
         }

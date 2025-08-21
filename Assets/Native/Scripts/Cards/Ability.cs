@@ -63,5 +63,6 @@ public class Ability : MonoBehaviour
     {
         _iterator = 0;
         _eventBus.StopUsingAbilityEvent();
+        _abilityInfo.HideAbilityInfo();
     }
 }
