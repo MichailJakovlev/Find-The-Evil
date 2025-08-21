@@ -1,6 +1,11 @@
 public class Imp : Role
 {
-    public override string SendMessage()
+    void Start()
+    {
+        _substituteRole._roleType = "Evil";
+    }
+
+public override string SendMessage()
     {
         if (_roleType == "Evil" || _cardStatus == "Corrupted")
         {

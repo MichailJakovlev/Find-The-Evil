@@ -47,8 +47,10 @@ MonoBehaviour:
   _cardNumber: 0
   _substituteRole: {fileID: 0}
   _roleDirector: {fileID: 0}
+  _abilityInfo: {fileID: 0}
   _cardName: Judge
   _cardStatus: Good
   _roleType: Villager
   _roleImage: {fileID: 0}
   _canUseAbility: 1
+  _selectCardAmount: 1

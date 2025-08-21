@@ -2,11 +2,6 @@ using UnityEngine;
 
 public class Judge : Role
 { 
-    public override void UseAbility()
-    {
-        _abilityInfo.ShowAbilityInfo("Pick 1 card", gameObject.GetComponentInParent<Card>());
-    }
-
     public string SayAbilityTruth(Card card)
     {
         if (card._cardRole._roleType == "Evil" || _cardStatus == "Corrupted")
@@ -31,16 +26,16 @@ public class Judge : Role
         }
     }
 
-    public override void Ability(Card card)
+    public override void Ability(params Card[] selectedCards)
     {
-        gameObject.GetComponentInParent<Card>()._cardMessage.gameObject.SetActive(true);
+        _card._cardMessage.gameObject.SetActive(true);
         if (_roleType == "Evil" || _cardStatus == "Corrupted")
         {
-            gameObject.GetComponentInParent<Card>()._cardMessageText.text = SayAbilityLie(card);
+            _card._cardMessageText.text = SayAbilityLie(selectedCards[0]);
         }
         else
         {
-            gameObject.GetComponentInParent<Card>()._cardMessageText.text = SayAbilityTruth(card);
+           _card._cardMessageText.text = SayAbilityTruth(selectedCards[0]);
         }
         gameObject.GetComponentInParent<CardHandler>().isAbilityUsed = true;
         _abilityInfo.HideAbilityInfo();

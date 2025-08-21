@@ -5,13 +5,15 @@ public class CardHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 {
     [SerializeField] private CardFlipAnimation cardFlipAnimation;
     [SerializeField] private Card card;
+    
     private bool isUsingAbility = false;
     private Card usedAbilityCard;
+    private Ability ability;
     
     public bool isKillMode = false;
     public bool isAbilityUsed = false;
     public bool isFlipped = false;
-
+    
     public void OnEnable()
     {
         EventBus.KillModeOn += CardKillModeOn;
@@ -30,10 +32,17 @@ public class CardHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         EventBus.StopUsingAbility -= StopUsingAbility;
     }
 
+    private void Start()
+    {
+        ability = FindObjectOfType<Ability>();
+        card._cardName.gameObject.SetActive(false);
+    }
+    
     private void StartUsingAbility(Card card)
     {
         isUsingAbility = true;
         usedAbilityCard = card;
+        
     }
 
     private void StopUsingAbility()
@@ -49,11 +58,6 @@ public class CardHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public void CardKillModeOff()
     {
         isKillMode = false;
-    }
-    
-    private void Start()
-    {
-        card._cardName.gameObject.SetActive(false);
     }
     
     public void OnPointerEnter(PointerEventData eventData)
@@ -76,22 +80,18 @@ public class CardHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
                 {
                     if (card._cardRole._roleType == "Evil")
                     {
-                        card._cardRole._substituteRole.UseAbility();
+                        ability.StartSelectCard(card._cardRole._substituteRole._card);
                     }
-                    card._cardRole.UseAbility();
+                    else
+                    {
+                        ability.StartSelectCard(card);
+                    }
                 }
             }
 
             else if(isFlipped && !isKillMode && isUsingAbility && !isAbilityUsed)
             {
-                if (card._cardRole._roleType == "Evil")
-                {
-                    usedAbilityCard._cardRole._substituteRole.Ability(card);
-                }
-                else
-                {
-                    usedAbilityCard._cardRole.Ability(card);
-                }
+                ability.SelectCard(card);
             }
 
             if (!isFlipped)
@@ -102,7 +102,7 @@ public class CardHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             
             if (isKillMode)
             {
-                card.KillCard();
+                card.KillCard();    
             }
             
             cardFlipAnimation.OnCardClick();
