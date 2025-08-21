@@ -36,6 +36,7 @@ public class Card : MonoBehaviour
             _cardName.text = _cardRole._cardName;
         }
         _cardMessage.gameObject.SetActive(false);
+        _cardRole.PassiveAbility();
     }
 
     public void ShowMessage()

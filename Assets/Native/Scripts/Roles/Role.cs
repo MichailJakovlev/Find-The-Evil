@@ -4,24 +4,37 @@ public class Role : MonoBehaviour
 {   
    [HideInInspector]
    public int _cardNumber;
+   [HideInInspector]
    public Role _substituteRole;
    [HideInInspector]
    public RoleDirector _roleDirector;
-   public AbilityInfo _abilityInfo;
+   [HideInInspector]
+   public CardHandler _cardHandler;
+   [HideInInspector]
+   public Card _card;
    
+   [Header("Card Settings")]
    public string _cardName;
-   public string _cardStatus;
    public string _roleType;
+   public int _selectCardAmount;
    public Sprite _roleImage;
    public bool _canUseAbility;
-   public int _selectCardAmount;
-   public Card _card;
+   public bool _isCorrupted;
    
    private void Awake()
    {
       if (_roleType == "Villager" || _roleType == "Outcast")
       {
          _substituteRole = this;
+      }
+   }
+
+   private void Start()
+   {
+      if (_roleType == "Evil")
+      {
+         _substituteRole._roleType = "Evil";
+         _selectCardAmount = _substituteRole._selectCardAmount;
       }
    }
    
@@ -41,4 +54,6 @@ public class Role : MonoBehaviour
    }
    
    public virtual void Ability(params Card[] selectedCards) { }
+   
+   public virtual void PassiveAbility() { }
 }
