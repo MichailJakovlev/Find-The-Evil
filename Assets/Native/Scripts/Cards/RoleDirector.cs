@@ -67,7 +67,6 @@ public class RoleDirector : MonoBehaviour
         
         for (int i = 0; i < cardPool._cardAmount; i++)
         {
-            cardPool.cards[i].Init();
             cardPool.cards[i]._cardRole._roleDirector = this;
             cardPool.cards[i]._cardRole._substituteRole._roleDirector = this;
             cardPool.cards[i]._cardRole._card = cardPool.cards[i];
@@ -75,6 +74,7 @@ public class RoleDirector : MonoBehaviour
             cardPool.cards[i]._cardRole._abilityInfo = _abilityInfo;
             cardPool.cards[i]._cardRole._substituteRole._abilityInfo = _abilityInfo;
             cardPool.cards[i]._cardRole._cardNumber = (cardPool._cardAmount - i);
+            cardPool.cards[i].Init();
         }
     }
     

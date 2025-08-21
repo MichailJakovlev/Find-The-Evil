@@ -19,7 +19,7 @@ public class Role : MonoBehaviour
    
    private void Awake()
    {
-      if (_roleType == "Villager")
+      if (_roleType == "Villager" || _roleType == "Outcast")
       {
          _substituteRole = this;
       }
