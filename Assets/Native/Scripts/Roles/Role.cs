@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Role : MonoBehaviour
 {   
@@ -15,6 +14,8 @@ public class Role : MonoBehaviour
    public string _roleType;
    public Sprite _roleImage;
    public bool _canUseAbility;
+   public int _selectCardAmount;
+   public Card _card;
    
    private void Awake()
    {
@@ -28,9 +29,7 @@ public class Role : MonoBehaviour
    {
       return " ";
    }
-
-   public virtual void UseAbility() { }
-
+   
    public virtual string SayTruth()
    {
       return " ";
@@ -41,5 +40,5 @@ public class Role : MonoBehaviour
       return " "; 
    }
    
-   public virtual void Ability(Card card) { }
+   public virtual void Ability(params Card[] selectedCards) { }
 }

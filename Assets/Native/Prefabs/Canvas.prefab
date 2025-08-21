@@ -1102,6 +1102,7 @@ GameObject:
   - component: {fileID: 2505061467916088747}
   - component: {fileID: 7720779437955125288}
   - component: {fileID: 7868074449241786982}
+  - component: {fileID: 7268499436140296818}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1239,7 +1240,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _textInfo: {fileID: 4931789557543043381}
   _background: {fileID: 6154516010182632385}
-  _eventBus: {fileID: 0}
+--- !u!114 &7268499436140296818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2414960119697250876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59258241dc46477469a3e722589e0881, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _abilityInfo: {fileID: 7868074449241786982}
 --- !u!1 &2452229103781440783
 GameObject:
   m_ObjectHideFlags: 0
@@ -1848,6 +1861,18 @@ MonoBehaviour:
       - m_Target: {fileID: 7868074449241786982}
         m_TargetAssemblyTypeName: AbilityInfo, Assembly-CSharp
         m_MethodName: HideAbilityInfo
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 7268499436140296818}
+        m_TargetAssemblyTypeName: Ability, Assembly-CSharp
+        m_MethodName: StopSelectCard
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
