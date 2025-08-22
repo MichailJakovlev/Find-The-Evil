@@ -47,7 +47,7 @@ public class Hunter : Role
         List<int> goodListDistance = new List<int>();
         List<int> evilListDistance = new List<int>();
 
-        var minDistance = _roleDirector.cardPool._cardAmount;
+        // var minDistance = _roleDirector.cardPool._cardAmount;
         
         foreach (var evil in evilsList)
         {

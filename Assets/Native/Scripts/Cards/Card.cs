@@ -60,9 +60,21 @@ public class Card : MonoBehaviour
             _cardName.color = Color.white;
             _cardFlipAnimation.cardStrokeFrontSpriteRenderer.color = Color.black;
             _cardFlipAnimation.cardImageSpriteRenderer.color = Color.red;
+            if (_cardRole._cardName == "Knight")
+            {
+                _cardMessageText.gameObject.SetActive(false);
+            }
+        }
+        else if (_cardRole._cardName == "Knight" && !_cardRole._isCorrupted)
+        {
+            ShowMessage();
         }
         else
         {
+            if (_cardRole._cardName == "Knight")
+            {
+                _cardMessageText.gameObject.SetActive(false);
+            }
             Debug.Log("Is not Evil");
         }
         _uiHandler.KillMode();
