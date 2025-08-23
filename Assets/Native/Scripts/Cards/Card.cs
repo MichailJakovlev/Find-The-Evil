@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System.Collections;
+using TMPro;
 using UnityEngine;
 
 public class Card : MonoBehaviour
@@ -36,6 +37,19 @@ public class Card : MonoBehaviour
             _cardName.text = _cardRole._cardName;
         }
         _cardMessage.gameObject.SetActive(false);
+        if (_cardRole._cardName == "Witch Doctor")
+        {
+            StartCoroutine(WaitInits());
+        }
+        else
+        {
+            _cardRole.PassiveAbility();
+        }
+    }
+
+    public IEnumerator WaitInits()
+    {
+        yield return new WaitUntil(() => _cardRole._roleDirector.isEndAsignRoles);
         _cardRole.PassiveAbility();
     }
 

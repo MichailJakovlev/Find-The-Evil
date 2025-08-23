@@ -30,8 +30,11 @@ public class RoleDirector : MonoBehaviour
     private AbilityInfo _abilityInfo;
     private List<Role> mergedList;
 
+    public bool isEndAsignRoles;
+
     public void AssignRoles()
     {
+        isEndAsignRoles = false;
         _abilityInfo = FindObjectOfType<AbilityInfo>();
         
         CreateVillagers(villagersAmount);
@@ -76,6 +79,8 @@ public class RoleDirector : MonoBehaviour
             cardPool.cards[i]._cardRole._cardNumber = (cardPool._cardAmount - i);
             cardPool.cards[i].Init();
         }
+
+        isEndAsignRoles = true;
     }
     
     public void CreateVillagers(int villagersAmount)
