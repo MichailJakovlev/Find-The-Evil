@@ -53,5 +53,7 @@ MonoBehaviour:
   _roleType: Villager
   _selectCardAmount: 0
   _roleImage: {fileID: 0}
+  _canShowMessage: 1
   _canUseAbility: 0
   _isCorrupted: 0
+  _cardInfoText: 

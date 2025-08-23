@@ -35,7 +35,7 @@ public class Hunter : Role
             }
         }
         
-        return $"I am {minDistance} card away from closest Evil";
+        return $"I am {minDistance} card away from <b>closest</b> Evil";
     }
 
     public override string SayLie(int evilCardNumber)
@@ -43,11 +43,10 @@ public class Hunter : Role
         var evilsList = _roleDirector.evilsCards;
         var villagerList = _roleDirector.villagersCards;
         var outcastList = _roleDirector.outcastsCards;
-        var mergedLists = villagerList.Concat(outcastList).ToList();
+        var mergedLists = villagerList.Concat(outcastList).ToList().Concat(evilsList).ToList();
         List<int> goodListDistance = new List<int>();
-        List<int> evilListDistance = new List<int>();
 
-        // var minDistance = _roleDirector.cardPool._cardAmount;
+        var minDistance = _roleDirector.cardPool._cardAmount;
         
         foreach (var evil in evilsList)
         {
@@ -56,11 +55,12 @@ public class Hunter : Role
             int distance3 = Mathf.Abs(evilCardNumber - (evil.cardId - _roleDirector.cardPool._cardAmount));
             
             int distance = Mathf.Min(distance1, Mathf.Min(distance2, distance3));
-            if (distance != 0 && !evilListDistance.Contains(distance))
+            if (distance != 0 && distance < minDistance)
             {
-                evilListDistance.Add(distance);
+                minDistance = distance;
             }
         }
+        
         foreach (var goodCard in mergedLists)
         {
             int distance1 = Mathf.Abs(evilCardNumber - goodCard.cardId);
@@ -68,13 +68,13 @@ public class Hunter : Role
             int distance3 = Mathf.Abs(evilCardNumber - (goodCard.cardId - _roleDirector.cardPool._cardAmount));
             
             int distance = Mathf.Min(distance1, Mathf.Min(distance2, distance3));
-            if (distance != 0 && !goodListDistance.Contains(distance))
+            if (distance != 0 && distance != minDistance && !goodListDistance.Contains(distance))
             {
                 goodListDistance.Add(distance);
             }
         }
-        List<int> differenceList = goodListDistance.Except(evilListDistance).ToList();
-        var randomIndex = Random.Range(0, differenceList.Count);
-        return $"I am {differenceList[randomIndex]} card away from closest Evil";
+        
+        var randomIndex = Random.Range(0, goodListDistance.Count);
+        return $"I am {goodListDistance[randomIndex]} card away from <b>closest</b> Evil";
     }
 }

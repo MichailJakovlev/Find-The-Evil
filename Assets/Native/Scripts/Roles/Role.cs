@@ -23,6 +23,7 @@ public class Role : MonoBehaviour
    public bool _canShowMessage;
    public bool _canUseAbility;
    public bool _isCorrupted;
+   [TextArea]
    public string _cardInfoText;
    
    
