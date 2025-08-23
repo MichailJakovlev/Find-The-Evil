@@ -13,6 +13,7 @@ public class CardHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public bool isKillMode = false;
     public bool isAbilityUsed = false;
     public bool isFlipped = false;
+    public string cardMessageText;
     
     public void OnEnable()
     {
@@ -62,11 +63,79 @@ public class CardHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public void OnPointerEnter(PointerEventData eventData)
     {
         cardFlipAnimation.OnCardEnter();
+        if (isFlipped && !isKillMode)
+        {
+            if (!card._cardRole._canShowMessage || card._cardRole._canUseAbility && !isAbilityUsed)
+            {
+                card._cardMessage.gameObject.SetActive(true);
+                card._cardMessage._messageBackground.gameObject.SetActive(false);
+                card._cardMessage._cardMessageText.gameObject.SetActive(false);
+                card._cardDescription._descriptionBackground.gameObject.SetActive(true);
+                card._cardDescription._cardDescriptionText.gameObject.SetActive(true);
+            }
+            else if(card._cardRole._roleType == "Evil" && card._cardRole._substituteRole._canUseAbility && !isAbilityUsed)
+            {
+                card._cardMessage.gameObject.SetActive(true);
+                card._cardMessage._messageBackground.gameObject.SetActive(false);
+                card._cardMessage._cardMessageText.gameObject.SetActive(false);
+                card._cardDescription._descriptionBackground.gameObject.SetActive(true);
+                card._cardDescription._cardDescriptionText.gameObject.SetActive(true);
+            }
+            else if(isUsingAbility && isAbilityUsed)
+            {
+                card._cardMessage.gameObject.SetActive(false);
+                card._cardMessage._messageBackground.gameObject.SetActive(false);
+                card._cardMessage._cardMessageText.gameObject.SetActive(false); 
+                card._cardDescription._descriptionBackground.gameObject.SetActive(true);
+                card._cardDescription._cardDescriptionText.gameObject.SetActive(true);
+            }
+            else
+            {
+                card._cardMessage._messageBackground.gameObject.SetActive(false);
+                card._cardMessage._cardMessageText.gameObject.SetActive(false);
+                card._cardDescription._descriptionBackground.gameObject.SetActive(true);
+                card._cardDescription._cardDescriptionText.gameObject.SetActive(true);
+            }
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         cardFlipAnimation.OnCardExit();
+        if (isFlipped)
+        {
+            if (!card._cardRole._canShowMessage || card._cardRole._canUseAbility && !isAbilityUsed)
+            {
+                card._cardMessage.gameObject.SetActive(false);
+                card._cardMessage._messageBackground.gameObject.SetActive(true);
+                card._cardMessage._cardMessageText.gameObject.SetActive(true);
+                card._cardDescription._descriptionBackground.gameObject.SetActive(false);
+                card._cardDescription._cardDescriptionText.gameObject.SetActive(false);
+            }
+            else if(card._cardRole._roleType == "Evil" && card._cardRole._substituteRole._canUseAbility && !isAbilityUsed)
+            {
+                card._cardMessage.gameObject.SetActive(false);
+                card._cardMessage._messageBackground.gameObject.SetActive(true);
+                card._cardMessage._cardMessageText.gameObject.SetActive(true);
+                card._cardDescription._descriptionBackground.gameObject.SetActive(false);
+                card._cardDescription._cardDescriptionText.gameObject.SetActive(false);
+            }
+            else if(isUsingAbility && isAbilityUsed)
+            {
+                card._cardMessage.gameObject.SetActive(true);
+                card._cardMessage._messageBackground.gameObject.SetActive(true);
+                card._cardMessage._cardMessageText.gameObject.SetActive(true);
+                card._cardDescription._descriptionBackground.gameObject.SetActive(false);
+                card._cardDescription._cardDescriptionText.gameObject.SetActive(false);
+            }
+            else
+            {
+                card._cardMessage._messageBackground.gameObject.SetActive(true);
+                card._cardMessage._cardMessageText.gameObject.SetActive(true);
+                card._cardDescription._descriptionBackground.gameObject.SetActive(false);
+                card._cardDescription._cardDescriptionText.gameObject.SetActive(false);
+            }
+        }
     }
     
     public void OnPointerClick(PointerEventData pointerEventData)
@@ -98,7 +167,6 @@ public class CardHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
                 {
                     ability.SelectCard(card);
                 }
-                
             }
 
             if (!isFlipped)
@@ -115,7 +183,7 @@ public class CardHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             cardFlipAnimation.OnCardClick();
         }
     }
-
+    
     public void CloseCards()
     {
         cardFlipAnimation.OnCardClose();

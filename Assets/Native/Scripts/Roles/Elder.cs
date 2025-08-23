@@ -52,7 +52,6 @@ public class Elder : Role
 
     public override string SayLie(int evilCardNumber)
     {
-        var evilsList = _roleDirector.evilsCards;
         var villagerList = _roleDirector.villagersCards;
         var outcastList = _roleDirector.outcastsCards;
         

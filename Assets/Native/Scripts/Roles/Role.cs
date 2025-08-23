@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class Role : MonoBehaviour
 {   
@@ -18,8 +20,11 @@ public class Role : MonoBehaviour
    public string _roleType;
    public int _selectCardAmount;
    public Sprite _roleImage;
+   public bool _canShowMessage;
    public bool _canUseAbility;
    public bool _isCorrupted;
+   public string _cardInfoText;
+   
    
    private void Awake()
    {

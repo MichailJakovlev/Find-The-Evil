@@ -50,16 +50,20 @@ public class RoleDirector : MonoBehaviour
 
         for (int i = 0; i < cardPool._cardAmount; i++)
         {
+            if (cardPool.cards[i]._cardRole._cardName == "Vagabond")
+            {
+                evilsCards.Add(cardPool.cards[i]);
+            }
+            
             if (cardPool.cards[i]._cardRole._roleType == "Evil")
             {
                 evilsCards.Add(cardPool.cards[i]);
-                
             }
-            else if (cardPool.cards[i]._cardRole._roleType == "Outcast")
+            else if (cardPool.cards[i]._cardRole._roleType == "Outcast" && cardPool.cards[i]._cardRole._cardName != "Vagabond")
             {
                 outcastsCards.Add(cardPool.cards[i]);
             }
-            else
+            else if(cardPool.cards[i]._cardRole._cardName != "Vagabond") 
             {
                 villagersCards.Add(cardPool.cards[i]);
             }
@@ -72,6 +76,8 @@ public class RoleDirector : MonoBehaviour
             cardPool.cards[i]._cardRole._card = cardPool.cards[i];
             cardPool.cards[i]._cardRole._substituteRole._card = cardPool.cards[i];
             cardPool.cards[i]._cardRole._cardHandler = cardPool.cards[i].GetComponentInChildren<CardHandler>();
+            cardPool.cards[i]._cardDescription._cardDescriptionText.text = cardPool.cards[i]._cardRole._substituteRole._cardInfoText;
+            cardPool.cards[i]._cardDescription._cardRoleTypeText.text = cardPool.cards[i]._cardRole._substituteRole._roleType;
             cardPool.cards[i]._cardRole._substituteRole._cardHandler = cardPool.cards[i]._cardRole._cardHandler;
             cardPool.cards[i]._cardRole._cardNumber = (cardPool._cardAmount - i);
             cardPool.cards[i].Init();
