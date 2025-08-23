@@ -1,19 +1,32 @@
 ﻿using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Card : MonoBehaviour
 {
+    [Header("Card Information")]
     public Role _cardRole;
-    public SpriteRenderer _cardImage;
+    [HideInInspector]
     public TextMeshProUGUI _cardName;
+    public int cardId;
+    [HideInInspector]
+    public SpriteRenderer _cardImage;
+    [HideInInspector]
     public TextMeshProUGUI _cardNumber;
     [HideInInspector]
     public TextMeshProUGUI _cardMessageText;
+    [HideInInspector]
+    public CardDescription _cardDescription;
+    [HideInInspector]
     public CardMessage _cardMessage;
-    public int cardId;
     
+    [HideInInspector]
     [SerializeField] private CardFlipAnimation _cardFlipAnimation;
+    
+    [Header("Message Zones")]
+    public GameObject[] MessageZone;
+    
     private UIHandler _uiHandler;
     public void OnEnable()
     {
@@ -31,10 +44,29 @@ public class Card : MonoBehaviour
         if (_cardRole._roleType == "Evil")
         {
             _cardName.text = _cardRole._substituteRole._cardName;
+            if (_cardRole._substituteRole._cardName == "Knight")
+            {
+                _cardRole._canShowMessage = false;
+                _cardMessageText.gameObject.SetActive(false);
+            }
         }
         else
         {
             _cardName.text = _cardRole._cardName;
+        }
+
+        if (_cardRole._roleImage != null)
+        {
+            _cardFlipAnimation.cardImageSpriteRenderer.sprite = _cardRole._roleImage;
+        }
+
+        if (_cardRole._substituteRole._roleType == "Villager")
+        {
+            _cardDescription._roleTypeBackground.GetComponent<Image>().color = new Color(46 / 255f, 143 / 255f, 24 / 255f);
+        }
+        else
+        {
+            _cardDescription._roleTypeBackground.GetComponent<Image>().color = new Color(168 / 255f, 143 / 255f, 19 / 255f);
         }
         _cardMessage.gameObject.SetActive(false);
         if (_cardRole._cardName == "Witch Doctor")
@@ -55,10 +87,13 @@ public class Card : MonoBehaviour
 
     public void ShowMessage()
     {
-        if (_cardRole._canUseAbility == false && _cardRole._substituteRole._canUseAbility == false)
+        if (_cardRole._canUseAbility == false && _cardRole._substituteRole._canUseAbility == false) 
         {
-            _cardMessage.gameObject.SetActive(true);
-            _cardMessageText.text = _cardRole.SendMessage();
+            if (_cardRole._canShowMessage || _cardRole._substituteRole._canShowMessage)
+            {
+                _cardMessage.gameObject.SetActive(true);
+                _cardMessageText.text = _cardRole.SendMessage();
+            }
         }
         else
         {
@@ -74,13 +109,15 @@ public class Card : MonoBehaviour
             _cardName.color = Color.white;
             _cardFlipAnimation.cardStrokeFrontSpriteRenderer.color = Color.black;
             _cardFlipAnimation.cardImageSpriteRenderer.color = Color.red;
-            if (_cardRole._cardName == "Knight")
-            {
-                _cardMessageText.gameObject.SetActive(false);
-            }
+            _cardDescription._roleTypeBackground.GetComponent<Image>().color = new Color(168 / 255f, 19 / 255f, 24 / 255f);
+            _cardDescription._cardRoleTypeText.text = _cardRole._roleType;
+            _cardDescription._cardDescriptionText.text = _cardRole._cardInfoText;
+            
         }
+        
         else if (_cardRole._cardName == "Knight" && !_cardRole._isCorrupted)
         {
+            _cardRole._canShowMessage = true;
             ShowMessage();
         }
         else

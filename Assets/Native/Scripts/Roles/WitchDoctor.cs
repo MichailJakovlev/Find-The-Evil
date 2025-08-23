@@ -19,46 +19,13 @@ public class WitchDoctor : Role
 
     public override string SayTruth()
     {
-        Debug.Log("R");
         return message;
     }
 
     public override string SayLie(int evilCardNumber)
     {
-        Debug.Log("L");
-        // var cardAmount = _roleDirector.cardPool._cardAmount;
-        //
-        // var villagerList = _roleDirector.villagersCards;
-        // var outcastList = _roleDirector.outcastsCards;
-        // var mergedLists = villagerList.Concat(outcastList).ToList();
-        //
-        // List<Card> corruptedList = new List<Card>();
-        // List<int> countCorruptedList = new List<int>() { 0, 1, 2 };
         List<int> countCorruptedList = new List<int>() { 1, 2 };
         
-        // var corruptedCount = 0;
-        //
-        // int leftNeighbor = (evilCardNumber - 2 + cardAmount) % cardAmount + 1;
-        // int rightNeighbor = evilCardNumber % cardAmount + 1;
-        //
-        // foreach (var card in mergedLists)
-        // {
-        //     if (card._cardRole._isCorrupted)
-        //     {
-        //         corruptedList.Add(card);
-        //     }
-        // }
-        //
-        // if (corruptedList.Any(corrupted => corrupted.cardId == leftNeighbor))
-        // {
-        //     corruptedCount++;
-        // }
-        // if (corruptedList.Any(corrupted => corrupted.cardId == rightNeighbor))
-        // {
-        //     corruptedCount++;
-        // }
-        //
-        // countCorruptedList.Remove(corruptedCount);
         var randomIndex = Random.Range(0, countCorruptedList.Count);
         return $"I cured {countCorruptedList[randomIndex]} Corruptions";
     }
@@ -101,15 +68,6 @@ public class WitchDoctor : Role
                     corruptedCount++;
                 }
             }
-
-            // if (corruptedList.Any(corrupted => corrupted.cardId == leftNeighbor))
-            // {
-            //     corruptedCount++;
-            // }
-            // if (corruptedList.Any(corrupted => corrupted.cardId == rightNeighbor))
-            // {
-            //     corruptedCount++;
-            // }
 
             message = $"I cured {corruptedCount} Corruptions";
         }

@@ -44,6 +44,7 @@ public class CardPool : MonoBehaviour
             cards[i] = Instantiate(cardPrefab, transform);
             cardMessages[i] = Instantiate(cardMessagePrefab.gameObject, transform);
             cards[i]._cardMessage = cardMessages[i].GetComponent<CardMessage>();
+            cards[i]._cardDescription = cardMessages[i].GetComponent<CardDescription>();
             cardMessages[i].gameObject.SetActive(false);
             cards[i].gameObject.SetActive(false);
         }
@@ -88,6 +89,29 @@ public class CardPool : MonoBehaviour
               cardMessages[i].gameObject.transform.rotation = new Quaternion(0,0,0,0);
               cardMessages[i].gameObject.transform.Rotate(_axis);
               cardMessages[i].transform.GetChild(0).transform.Rotate(-_axis);
+              
+              if (i > (value - 1) / 2)
+              {
+                  cardMessages[i].GetComponent<CardMessage>().ChangePosition(cards[i].MessageZone[0]);
+              }
+              else if(i == 0 && value % 2 != 0)
+              {
+                  cardMessages[i].GetComponent<CardMessage>().ChangePosition(cards[i].MessageZone[3]);
+              }
+              else if(i == 0 && value % 2 == 0)
+              {
+                  cardMessages[i].GetComponent<CardMessage>().ChangePosition(cards[i].MessageZone[3]);
+              }
+              else
+              {
+                  cardMessages[i].GetComponent<CardMessage>().ChangePosition(cards[i].MessageZone[1]);
+              }
+             
+              if(i == value / 2 && value % 2 == 0)
+              {
+                  cardMessages[i].GetComponent<CardMessage>().ChangePosition(cards[i].MessageZone[2]);
+              }
+              
         }
     }
     

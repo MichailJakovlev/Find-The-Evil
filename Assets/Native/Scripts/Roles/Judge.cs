@@ -36,6 +36,7 @@ public class Judge : Role
            _card._cardMessageText.text = SayAbilityTruth(selectedCards[0]);
         }
         
+        _canShowMessage = true;
         _cardHandler.isAbilityUsed = true;
     }
 }
