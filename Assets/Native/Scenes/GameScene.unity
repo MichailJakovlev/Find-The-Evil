@@ -577,11 +577,11 @@ MonoBehaviour:
   evilsAmount: 3
   villagersRoles:
   - {fileID: -1024789019349685123, guid: a9404b1b3c71d804884e5181bff29c27, type: 3}
-  - {fileID: 8363844532616324775, guid: ad4f7f9472013c948a60eadc0d34a9f5, type: 3}
-  - {fileID: -2343583852235341154, guid: 26fa64a12bc341c48861f36110ac5d7c, type: 3}
-  - {fileID: 7273028950181103411, guid: bd686d2029744534eb667cc24d96886c, type: 3}
-  - {fileID: 9110411627961918984, guid: bd3becd2a879ad34e8cdecdfe623d0ce, type: 3}
   - {fileID: -48043886367693786, guid: fd6884e0f60f4d04f99c317de97edcf3, type: 3}
+  - {fileID: -5614131095109936981, guid: beb32d6ce6f48ed4ca8f488415ac9163, type: 3}
+  - {fileID: 7273028950181103411, guid: bd686d2029744534eb667cc24d96886c, type: 3}
+  - {fileID: 2601826140513081882, guid: b27ed2bc31559c34b8585e60e08740d3, type: 3}
+  - {fileID: -4545192508176351950, guid: 776d6c1b10e4f37479b835f5953cf0d0, type: 3}
   - {fileID: 1666300796620940851, guid: cab2aec2244d2744d818c2d0fd4faf1a, type: 3}
   - {fileID: -4545192508176351950, guid: 776d6c1b10e4f37479b835f5953cf0d0, type: 3}
   outcastsRoles:

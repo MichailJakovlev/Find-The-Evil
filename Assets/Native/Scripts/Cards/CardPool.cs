@@ -92,24 +92,35 @@ public class CardPool : MonoBehaviour
               
               if (i > (value - 1) / 2)
               {
-                  cardMessages[i].GetComponent<CardMessage>().ChangePosition(cards[i].MessageZone[0]);
+                  cardMessages[i].GetComponent<CardMessage>().ChangePosition(cards[i].MessageZone[0]); //right
+                  cards[i]._cardDescription._descriptionRectTransform.localPosition = new Vector3(cards[i]._cardDescription._descriptionCanvas.sizeDelta.x / 2, 0f, 0f);
+                  cards[i]._cardDescription.descriptionLayoutGroup.childAlignment = TextAnchor.UpperLeft;
               }
               else if(i == 0 && value % 2 != 0)
               {
-                  cardMessages[i].GetComponent<CardMessage>().ChangePosition(cards[i].MessageZone[3]);
+                  cardMessages[i].GetComponent<CardMessage>().ChangePosition(cards[i].MessageZone[3]);// bottom
+                  cards[i]._cardDescription._descriptionRectTransform.localPosition = new Vector3(0f, 0f, 0f);
+                  cards[i]._cardDescription.descriptionLayoutGroup.childAlignment = TextAnchor.UpperCenter;
               }
               else if(i == 0 && value % 2 == 0)
               {
-                  cardMessages[i].GetComponent<CardMessage>().ChangePosition(cards[i].MessageZone[3]);
+                  cardMessages[i].GetComponent<CardMessage>().ChangePosition(cards[i].MessageZone[3]);// bottom
+                  cards[i]._cardDescription._descriptionRectTransform.localPosition = new Vector3(0f, 0f, 0f);
+                  cards[i]._cardDescription.descriptionLayoutGroup.childAlignment = TextAnchor.UpperCenter;
               }
               else
               {
-                  cardMessages[i].GetComponent<CardMessage>().ChangePosition(cards[i].MessageZone[1]);
+                  cardMessages[i].GetComponent<CardMessage>().ChangePosition(cards[i].MessageZone[1]); //left
+                  cards[i]._cardDescription._descriptionRectTransform.localPosition = new Vector3(0f, 0f, 0f);
+                  cards[i]._cardDescription._descriptionRectTransform.localPosition = new Vector3(cards[i]._cardDescription._descriptionCanvas.sizeDelta.x / 2 * -1, 0f, 0f);
+                  cards[i]._cardDescription.descriptionLayoutGroup.childAlignment = TextAnchor.UpperRight;
               }
              
               if(i == value / 2 && value % 2 == 0)
               {
-                  cardMessages[i].GetComponent<CardMessage>().ChangePosition(cards[i].MessageZone[2]);
+                  cardMessages[i].GetComponent<CardMessage>().ChangePosition(cards[i].MessageZone[2]); // top
+                  cards[i]._cardDescription._descriptionRectTransform.localPosition = new Vector3(0f, 0f, 0f);
+                  cards[i]._cardDescription.descriptionLayoutGroup.childAlignment = TextAnchor.UpperCenter;
               }
               
         }
