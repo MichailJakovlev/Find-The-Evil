@@ -28,9 +28,13 @@ public class Card : MonoBehaviour
     public GameObject[] MessageZone;
     
     private UIHandler _uiHandler;
+    private Health _health;
+    private RoundDirector _roundDirector;
     public void OnEnable()
     {
         _uiHandler = FindObjectOfType<UIHandler>();
+        _health = FindObjectOfType<Health>();
+        _roundDirector = FindObjectOfType<RoundDirector>();
         EventBus.RestartRound += ClearCard;
     }
 
@@ -73,6 +77,10 @@ public class Card : MonoBehaviour
         {
             StartCoroutine(WaitInits());
         }
+        else if (_cardRole._cardName == "Robber")
+        {
+            StartCoroutine(WaitInits());
+        }
         else
         {
             _cardRole.PassiveAbility();
@@ -83,6 +91,8 @@ public class Card : MonoBehaviour
     {
         yield return new WaitUntil(() => _cardRole._roleDirector.isEndAsignRoles);
         _cardRole.PassiveAbility();
+        
+        _roundDirector.RoundStart();
     }
 
     public void ShowMessage()
@@ -113,6 +123,24 @@ public class Card : MonoBehaviour
             _cardDescription._cardRoleTypeText.text = _cardRole._roleType;
             _cardDescription._cardDescriptionText.text = _cardRole._cardInfoText;
             
+            _roundDirector.evilsKilled++;
+            Debug.Log(_roundDirector.evilsKilled);
+            if (_roundDirector.evilsKilled == _roundDirector.roleDirector.trueEvilsCardsForCount.Count)
+            {
+                _roundDirector.RoundWin();
+            }
+        }
+        
+        else if (_cardRole._cardName == "Robber")
+        {
+            _health.Damage();
+            if (_health.currentHealth == 0)
+            {
+                _roundDirector.RoundLose();
+            }
+            _cardRole.PassiveAbility();
+            
+            Debug.Log("Is not Evil");
         }
         
         else if (_cardRole._cardName == "Knight" && !_cardRole._isCorrupted)
@@ -126,6 +154,13 @@ public class Card : MonoBehaviour
             {
                 _cardMessageText.gameObject.SetActive(false);
             }
+            
+            _health.Damage();
+            if (_health.currentHealth == 0)
+            {
+                _roundDirector.RoundLose();
+            }
+            
             Debug.Log("Is not Evil");
         }
         _uiHandler.KillMode();

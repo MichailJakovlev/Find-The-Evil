@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1094958976232500580
+--- !u!1 &2655063465370502940
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1101151346349814180}
-  - component: {fileID: 2601826140513081882}
+  - component: {fileID: 3751356974521999801}
+  - component: {fileID: 4214915812573663612}
   m_Layer: 0
-  m_Name: Peasant
+  m_Name: RoundDirector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1101151346349814180
+--- !u!4 &3751356974521999801
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1094958976232500580}
+  m_GameObject: {fileID: 2655063465370502940}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -32,28 +32,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2601826140513081882
+--- !u!114 &4214915812573663612
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1094958976232500580}
+  m_GameObject: {fileID: 2655063465370502940}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17b236883703490d811af88fecb41fe3, type: 3}
+  m_Script: {fileID: 11500000, guid: d8f496c0ddd448ac8db395ea41c305e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cardNumber: 0
-  _substituteRole: {fileID: 0}
-  _roleDirector: {fileID: 0}
-  _cardHandler: {fileID: 0}
-  _card: {fileID: 0}
-  _cardName: Peasant
-  _roleType: Villager
-  _selectCardAmount: 0
-  _roleImage: {fileID: 1307050079, guid: e890d78fed8193e47a6c5c6015dd55f0, type: 3}
-  _canShowMessage: 1
-  _canUseAbility: 0
-  _isCorrupted: 0
-  _cardInfoText: Peasant Description
+  health: {fileID: 0}
+  roleDirector: {fileID: 0}

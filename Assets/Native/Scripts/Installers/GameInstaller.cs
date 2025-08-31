@@ -13,6 +13,8 @@ public class GameInstaller : MonoInstaller
     [SerializeField] private FullscreenAd _fullscreenAd;
     [SerializeField] private RateGame _rateGame;
     [SerializeField] private ReadyGameAPI _readyGameAPI;
+    [SerializeField] private Health _health;
+    [SerializeField] private RoundDirector _roundDirector;
     [SerializeField] private UISwitcher _uiSwitcher;
 
     public override void InstallBindings()
@@ -47,6 +49,10 @@ public class GameInstaller : MonoInstaller
         ReadyGameAPI readyGameAPI = Container.InstantiatePrefabForComponent<ReadyGameAPI>(_readyGameAPI, _readyGameAPI.transform.position, Quaternion.identity, null);
         Container.Bind<IReadyGameAPI>().To<ReadyGameAPI>().FromInstance(readyGameAPI).AsSingle();
 
+        RoundDirector roundDirector = Container.InstantiatePrefabForComponent<RoundDirector>(_roundDirector, _roundDirector.transform.position, Quaternion.identity, null);
+        
+        Health health = Container.InstantiatePrefabForComponent<Health>(_health, _health.transform.position, Quaternion.identity, null);
+        
         UISwitcher uiSwitcher = Container.InstantiatePrefabForComponent<UISwitcher>(_uiSwitcher, _uiSwitcher.transform.position, Quaternion.identity, null);
     }
 }

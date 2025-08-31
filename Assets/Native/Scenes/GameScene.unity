@@ -210,6 +210,8 @@ MonoBehaviour:
   _fullscreenAd: {fileID: 8973596623523368340, guid: b9e8fb2a3c8eaec4e99b71d285b7b87d, type: 3}
   _rateGame: {fileID: 2650456539451266974, guid: 4945d9658005c9d478c189f55b1a8c95, type: 3}
   _readyGameAPI: {fileID: 3602667140450574609, guid: c31d947b93fc4724d83ee88624219dcb, type: 3}
+  _health: {fileID: 2918185153573084686, guid: 0f519eb7d895e484f92f50d11b3376a4, type: 3}
+  _roundDirector: {fileID: 4214915812573663612, guid: 49a0caba27e929e4c951a06b283a3524, type: 3}
   _uiSwitcher: {fileID: 2505061467916088747, guid: 4d15f263da158bd4f8420186df363fd9, type: 3}
 --- !u!114 &1120068248
 MonoBehaviour:
@@ -585,7 +587,7 @@ MonoBehaviour:
   - {fileID: 1666300796620940851, guid: cab2aec2244d2744d818c2d0fd4faf1a, type: 3}
   - {fileID: -4545192508176351950, guid: 776d6c1b10e4f37479b835f5953cf0d0, type: 3}
   outcastsRoles:
-  - {fileID: -136609306258790582, guid: 1ed7d9fc38c28f44faf9606f7f6974e3, type: 3}
+  - {fileID: -5144363794753033451, guid: 2a099fcfacdd55447b5a949cffda0fdf, type: 3}
   evilsRoles:
   - {fileID: 5351388700702287351, guid: da1bb15a99b1d5c47a9aa25e9f4f695c, type: 3}
   - {fileID: 1260520348217399934, guid: dc3d227167cebff4897d0d1eabca0213, type: 3}
@@ -597,6 +599,7 @@ MonoBehaviour:
   villagersCards: []
   outcastsCards: []
   evilsCards: []
+  trueEvilsCardsForCount: []
   isEndAsignRoles: 0
 --- !u!4 &2141178238
 Transform:

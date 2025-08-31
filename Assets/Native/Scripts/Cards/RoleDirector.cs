@@ -26,6 +26,7 @@ public class RoleDirector : MonoBehaviour
     public List<Card> villagersCards;
     public List<Card> outcastsCards;
     public List<Card> evilsCards;
+    public List<Card> trueEvilsCardsForCount;
 
     private AbilityInfo _abilityInfo;
     private List<Role> mergedList;
@@ -61,6 +62,7 @@ public class RoleDirector : MonoBehaviour
             if (cardPool.cards[i]._cardRole._roleType == "Evil")
             {
                 evilsCards.Add(cardPool.cards[i]);
+                trueEvilsCardsForCount.Add(cardPool.cards[i]);
             }
             else if (cardPool.cards[i]._cardRole._roleType == "Outcast" && cardPool.cards[i]._cardRole._cardName != "Vagabond")
             {
@@ -151,5 +153,6 @@ public class RoleDirector : MonoBehaviour
         }
         createdEvilsRoles.Clear();
         evilsCards.Clear();
+        trueEvilsCardsForCount.Clear();
     }
 }

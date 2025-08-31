@@ -39,7 +39,7 @@ public class CardFlipAnimation : MonoBehaviour
     public SpriteRenderer cardStrokeFrontSpriteRenderer;
     [HideInInspector]
     public SpriteRenderer cardStrokeBackSpriteRenderer;
-    
+
     private Sequence hoverAnimationSequence;
     
     private bool isFlipped = false;

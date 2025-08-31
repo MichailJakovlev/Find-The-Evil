@@ -15,7 +15,7 @@ public class UISwitcher : MonoBehaviour
 
     public void Start()
     {
-        AudioButtonSwitch();
+        // AudioButtonSwitch();
         _authLeaderboardPanel = GameObject.FindGameObjectWithTag("LeaderboardAuthPanel");
     }
 

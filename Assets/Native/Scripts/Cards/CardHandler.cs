@@ -15,6 +15,9 @@ public class CardHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public bool isFlipped = false;
     public string cardMessageText;
     
+    public bool isFlippable = true;
+    public bool isKilled = false;
+    
     public void OnEnable()
     {
         EventBus.KillModeOn += CardKillModeOn;
@@ -171,22 +174,31 @@ public class CardHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
             if (!isFlipped)
             {
-                card.ShowMessage();
-                card._cardName.gameObject.SetActive(true);
+                if (isFlippable)
+                {
+                    card.ShowMessage();
+                    card._cardName.gameObject.SetActive(true);
+                    cardFlipAnimation.OnCardClick();
+                }
             }
             
             if (isKillMode)
             {
-                card.KillCard();    
+                isKilled = true;
+                card.KillCard();
+                card.ShowMessage();
+                card._cardName.gameObject.SetActive(true);
+                cardFlipAnimation.OnCardClick();
             }
-            
-            cardFlipAnimation.OnCardClick();
         }
     }
     
     public void CloseCards()
     {
-        cardFlipAnimation.OnCardClose();
+        isFlippable = true;
+        isKilled = false;
         isAbilityUsed = false;
+        cardFlipAnimation.OnCardClose();
+        Debug.Log("close cards");
     }
 }
