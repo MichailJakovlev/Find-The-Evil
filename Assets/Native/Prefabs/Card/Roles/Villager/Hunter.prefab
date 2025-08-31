@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1101151346349814180}
-  - component: {fileID: 1666300796620940851}
+  - component: {fileID: 8363844532616324775}
   m_Layer: 0
-  m_Name: Scout
+  m_Name: Hunter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1666300796620940851
+--- !u!114 &8363844532616324775
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,7 +41,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1094958976232500580}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1fb574b7b48c4fd3926a61d1a2adcacf, type: 3}
+  m_Script: {fileID: 11500000, guid: 6da75289e3a44348a204eddc72cadb1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _cardNumber: 0
@@ -49,11 +49,12 @@ MonoBehaviour:
   _roleDirector: {fileID: 0}
   _cardHandler: {fileID: 0}
   _card: {fileID: 0}
-  _cardName: Scout
+  _cardWeight: 2
+  _cardName: Hunter
   _roleType: Villager
   _selectCardAmount: 0
   _roleImage: {fileID: 0}
   _canShowMessage: 1
   _canUseAbility: 0
   _isCorrupted: 0
-  _cardInfoText: Scout Description
+  _cardInfoText: Hunter Description

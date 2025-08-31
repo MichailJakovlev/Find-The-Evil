@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1101151346349814180}
-  - component: {fileID: 5351388700702287351}
+  - component: {fileID: 6491730483603148511}
   m_Layer: 0
-  m_Name: Imp
+  m_Name: Lich
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5351388700702287351
+--- !u!114 &6491730483603148511
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,19 +41,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 1094958976232500580}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a6e5b5b1bd505742a68b50fac0ebc81, type: 3}
+  m_Script: {fileID: 11500000, guid: 56d1b610ec024030b593a3176d10ab02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cardNumber: 3
+  _cardNumber: 0
   _substituteRole: {fileID: 0}
   _roleDirector: {fileID: 0}
   _cardHandler: {fileID: 0}
   _card: {fileID: 0}
-  _cardName: Imp
+  _cardWeight: 3
+  _cardName: Lich
   _roleType: Evil
   _selectCardAmount: 0
   _roleImage: {fileID: 0}
   _canShowMessage: 1
   _canUseAbility: 0
   _isCorrupted: 0
-  _cardInfoText: Imp Description
+  _cardInfoText: Lich Description

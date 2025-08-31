@@ -73,6 +73,7 @@ public class Card : MonoBehaviour
             _cardDescription._roleTypeBackground.GetComponent<Image>().color = new Color(168 / 255f, 143 / 255f, 19 / 255f);
         }
         _cardMessage.gameObject.SetActive(false);
+        
         if (_cardRole._cardName == "Witch Doctor")
         {
             StartCoroutine(WaitInits());

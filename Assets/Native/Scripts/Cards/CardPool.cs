@@ -1,4 +1,3 @@
-using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -6,7 +5,7 @@ public class CardPool : MonoBehaviour
 {
     [SerializeField] private Card cardPrefab;
     [SerializeField] private CardMessage cardMessagePrefab;
-    [SerializeField] private GameObject[] cardMessages;
+    [SerializeField] public GameObject[] cardMessages;
     [SerializeField] private RoleDirector roleDirector;
     
     public Card[] cards;
@@ -58,8 +57,7 @@ public class CardPool : MonoBehaviour
         {
             cards[i].gameObject.SetActive(true);
             cards[i]._cardNumber.text = "#" + (cardAmount - i);
-            cards[i]._cardMessageText = cardMessages[i].transform.GetComponentInChildren<TextMeshProUGUI>();
-            cardMessages[i].SetActive(true);
+            
             cards[i].cardId = (cardAmount - i);
         }
         

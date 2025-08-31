@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1094958976232500580
+--- !u!1 &732682390720167133
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1101151346349814180}
-  - component: {fileID: 6491730483603148511}
+  - component: {fileID: 7094644197905580647}
+  - component: {fileID: 4980417529721510641}
   m_Layer: 0
-  m_Name: Lich
+  m_Name: WitchDoctor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1101151346349814180
+--- !u!4 &7094644197905580647
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1094958976232500580}
+  m_GameObject: {fileID: 732682390720167133}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -32,16 +32,16 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6491730483603148511
+--- !u!114 &4980417529721510641
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1094958976232500580}
+  m_GameObject: {fileID: 732682390720167133}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56d1b610ec024030b593a3176d10ab02, type: 3}
+  m_Script: {fileID: 11500000, guid: 227d875114f5464dbeb4335ac3d8db93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _cardNumber: 0
@@ -49,11 +49,11 @@ MonoBehaviour:
   _roleDirector: {fileID: 0}
   _cardHandler: {fileID: 0}
   _card: {fileID: 0}
-  _cardName: Lich
-  _roleType: Evil
+  _cardName: Witch Doctor
+  _roleType: Villager
   _selectCardAmount: 0
   _roleImage: {fileID: 0}
   _canShowMessage: 1
   _canUseAbility: 0
   _isCorrupted: 0
-  _cardInfoText: Lich Description
+  _cardInfoText: Witch Doctor Description

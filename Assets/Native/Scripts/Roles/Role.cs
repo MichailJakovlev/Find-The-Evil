@@ -1,6 +1,4 @@
-﻿using TMPro;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 public class Role : MonoBehaviour
 {   
@@ -16,6 +14,7 @@ public class Role : MonoBehaviour
    public Card _card;
    
    [Header("Card Settings")]
+   public int _cardWeight;
    public string _cardName;
    public string _roleType;
    public int _selectCardAmount;
