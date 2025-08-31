@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
+using NUnit.Framework;
+using TMPro;
 using UnityEngine;
 
 public class RoleDirector : MonoBehaviour
@@ -10,9 +12,9 @@ public class RoleDirector : MonoBehaviour
     [SerializeField] private int evilsAmount;
     
     [Header("Roles")]
-    [SerializeField] private List<Role> villagersRoles;
-    [SerializeField] private List<Role> outcastsRoles;
-    [SerializeField] private List<Role> evilsRoles;
+    public List<Role> villagersRoles;
+    public List<Role> outcastsRoles;
+    public List<Role> evilsRoles;
     
     [Header("Object Links")]
     public CardPool cardPool;
@@ -28,8 +30,11 @@ public class RoleDirector : MonoBehaviour
     public List<Card> evilsCards;
 
     private AbilityInfo _abilityInfo;
-    private List<Role> mergedList;
-
+    [HideInInspector]
+    public List<Role> mergedList;
+    [HideInInspector]
+    public List<Role> _trashList;
+    [HideInInspector]
     public bool isEndAsignRoles;
 
     public void AssignRoles()
@@ -83,6 +88,8 @@ public class RoleDirector : MonoBehaviour
             cardPool.cards[i]._cardDescription._cardRoleTypeText.text = cardPool.cards[i]._cardRole._substituteRole._roleType;
             cardPool.cards[i]._cardRole._substituteRole._cardHandler = cardPool.cards[i]._cardRole._cardHandler;
             cardPool.cards[i]._cardRole._cardNumber = (cardPool._cardAmount - i);
+            cardPool.cards[i]._cardMessageText =  cardPool.cardMessages[i].transform.GetComponentInChildren<TextMeshProUGUI>();
+            cardPool.cardMessages[i].SetActive(true);
             cardPool.cards[i].Init();
         }
 
@@ -126,6 +133,8 @@ public class RoleDirector : MonoBehaviour
             Role role = Instantiate(mergedList[i]);
             mergedList[i] = Instantiate(createdEvilsRoles[i]);
             mergedList[i]._substituteRole = role;
+            _trashList.Add(mergedList[i]);
+            _trashList.Add(role);
         }
     }
     
@@ -135,12 +144,20 @@ public class RoleDirector : MonoBehaviour
         {
             villagersRoles.Add(createdVillagersRoles[i]);
         }
+        for (int i = 0; i < villagersCards.Count; i++)
+        {
+            Destroy(villagersCards[i]._cardRole.gameObject);
+        }
         createdVillagersRoles.Clear();
         villagersCards.Clear();
         
         for (int i = 0; i < createdOutcastsRoles.Count; i++)
         {
             outcastsRoles.Add(createdOutcastsRoles[i]);
+        }
+        for (int i = 0; i < outcastsCards.Count; i++)
+        {
+            Destroy(outcastsCards[i]._cardRole.gameObject);
         }
         createdOutcastsRoles.Clear();
         outcastsCards.Clear();
@@ -149,7 +166,18 @@ public class RoleDirector : MonoBehaviour
         {
             evilsRoles.Add(createdEvilsRoles[i]);
         }
+        for (int i = 0; i < evilsCards.Count; i++)
+        {
+           Destroy(evilsCards[i]._cardRole.gameObject);
+        }
         createdEvilsRoles.Clear();
         evilsCards.Clear();
+
+        for (int i = 0; i < _trashList.Count; i++)
+        {
+            Destroy(_trashList[i].gameObject);
+        }
+        mergedList.Clear();
+        _trashList.Clear();
     }
 }
