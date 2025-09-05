@@ -48,10 +48,17 @@ public class Card : MonoBehaviour
         if (_cardRole._roleType == "Evil")
         {
             _cardName.text = _cardRole._substituteRole._cardName;
+            if (_cardRole._substituteRole._canShowMessage == false)
+            {
+                _cardRole._canShowMessage = false;
+            }
             if (_cardRole._substituteRole._cardName == "Knight")
             {
                 _cardRole._canShowMessage = false;
-                _cardMessageText.gameObject.SetActive(false);
+            }
+            if (_cardRole._substituteRole._cardName == "Robber")
+            {
+                StartCoroutine(WaitInits(true));
             }
         }
         else
@@ -88,10 +95,12 @@ public class Card : MonoBehaviour
         }
     }
 
-    public IEnumerator WaitInits()
+    public IEnumerator WaitInits(bool isSubstituteRole = false)
     {
         yield return new WaitUntil(() => _cardRole._roleDirector.isEndAsignRoles);
-        _cardRole.PassiveAbility();
+        
+        if (isSubstituteRole)_cardRole._substituteRole.PassiveAbility(_cardRole._card.cardId);
+        else _cardRole.PassiveAbility();
         
         _roundDirector.RoundStart();
     }
@@ -104,6 +113,8 @@ public class Card : MonoBehaviour
             {
                 _cardMessage.gameObject.SetActive(true);
                 _cardMessageText.text = _cardRole.SendMessage();
+                // if (_cardRole._roleType == "Evil") _cardMessageText.text = _cardRole._substituteRole.SendMessage();
+                // else _cardMessageText.text = _cardRole.SendMessage();
             }
         }
         else
@@ -124,6 +135,17 @@ public class Card : MonoBehaviour
             _cardDescription._cardRoleTypeText.text = _cardRole._roleType;
             _cardDescription._cardDescriptionText.text = _cardRole._cardInfoText;
             
+            if (_cardRole._substituteRole._cardName == "Robber")
+            {
+                _health.Damage(_cardRole._penaltyDamage);
+                if (_health.currentHealth == 0)
+                {
+                    _roundDirector.RoundLose();
+                }
+                _cardRole._substituteRole.PassiveAbility(_cardRole._card.cardId);
+            
+            }
+            
             _roundDirector.evilsKilled++;
             Debug.Log(_roundDirector.evilsKilled);
             if (_roundDirector.evilsKilled == _roundDirector.roleDirector.trueEvilsCardsForCount.Count)
@@ -134,7 +156,7 @@ public class Card : MonoBehaviour
         
         else if (_cardRole._cardName == "Robber")
         {
-            _health.Damage();
+            _health.Damage(_cardRole._penaltyDamage);
             if (_health.currentHealth == 0)
             {
                 _roundDirector.RoundLose();
@@ -149,6 +171,11 @@ public class Card : MonoBehaviour
             _cardRole._canShowMessage = true;
             ShowMessage();
         }
+        else if (_cardRole._cardName == "Bomber" && !_cardRole._isCorrupted)
+        {
+            _health.Damage(_health.healthAmount);
+            _roundDirector.RoundLose();
+        }
         else
         {
             if (_cardRole._cardName == "Knight")
@@ -156,7 +183,7 @@ public class Card : MonoBehaviour
                 _cardMessageText.gameObject.SetActive(false);
             }
             
-            _health.Damage();
+            _health.Damage(_cardRole._penaltyDamage);
             if (_health.currentHealth == 0)
             {
                 _roundDirector.RoundLose();

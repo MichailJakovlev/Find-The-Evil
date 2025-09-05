@@ -47,6 +47,7 @@ public class RoleDirector : MonoBehaviour
         CreateEvils(evilsAmount);
         
         mergedList = createdVillagersRoles.Concat(createdOutcastsRoles).ToList();
+        mergedList.Shuffle();
         ImplimentEvil();
         
         for (int i = 0; i < cardPool._cardAmount; i++)

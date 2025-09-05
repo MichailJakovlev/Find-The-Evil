@@ -176,8 +176,8 @@ public class CardHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             {
                 if (isFlippable)
                 {
-                    card.ShowMessage();
                     card._cardName.gameObject.SetActive(true);
+                    card.ShowMessage();
                     cardFlipAnimation.OnCardClick();
                 }
             }
@@ -186,7 +186,10 @@ public class CardHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             {
                 isKilled = true;
                 card.KillCard();
-                card.ShowMessage();
+                if (!isFlipped)
+                {
+                    card.ShowMessage();
+                }
                 card._cardName.gameObject.SetActive(true);
                 cardFlipAnimation.OnCardClick();
             }
@@ -199,6 +202,5 @@ public class CardHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         isKilled = false;
         isAbilityUsed = false;
         cardFlipAnimation.OnCardClose();
-        Debug.Log("close cards");
     }
 }

@@ -18,6 +18,8 @@ public class Role : MonoBehaviour
    public string _cardName;
    public string _roleType;
    public int _selectCardAmount;
+   public int _penaltyDamage = 5;
+   public int _abilityDamage = 0;
    public Sprite _roleImage;
    public bool _canShowMessage;
    public bool _canUseAbility;
@@ -61,4 +63,5 @@ public class Role : MonoBehaviour
    public virtual void Ability(params Card[] selectedCards) { }
    
    public virtual void PassiveAbility() { }
+   public virtual void PassiveAbility(int evilCardNumber) { }
 }
