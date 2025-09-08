@@ -39,7 +39,6 @@ public class Robber : Role
 
             var cardAmount = _roleDirector.cardPool._cardAmount;
             int rightNeighbor = _cardNumber % cardAmount + 1;
-            Debug.Log("_cardNumber: " + _cardNumber);
 
             foreach (var card in mergedLists)
             {
@@ -58,7 +57,6 @@ public class Robber : Role
 
             var cardAmount = _roleDirector.cardPool._cardAmount;
             int rightNeighbor = _cardNumber % cardAmount + 1;
-            Debug.Log("_cardNumber: " + _cardNumber);
 
             foreach (var card in mergedLists)
             {
@@ -81,7 +79,6 @@ public class Robber : Role
         
             var cardAmount = _roleDirector.cardPool._cardAmount;
             int rightNeighbor = evilCardNumber % cardAmount + 1;
-            Debug.Log("evilCardNumber: " + evilCardNumber);
 
             foreach (var card in mergedLists)
             {
@@ -100,7 +97,6 @@ public class Robber : Role
         
             var cardAmount = _roleDirector.cardPool._cardAmount;
             int rightNeighbor = evilCardNumber % cardAmount + 1;
-            Debug.Log("evilCardNumber: " + evilCardNumber);
 
             foreach (var card in mergedLists)
             {

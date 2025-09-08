@@ -642,7 +642,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   villagersAmount: 7
   outcastsAmount: 3
-  evilsAmount: 4
+  evilsAmount: 3
   villagersRoles:
   - {fileID: -48043886367693786, guid: fd6884e0f60f4d04f99c317de97edcf3, type: 3}
   - {fileID: -1024789019349685123, guid: a9404b1b3c71d804884e5181bff29c27, type: 3}
@@ -650,7 +650,7 @@ MonoBehaviour:
   - {fileID: 7273028950181103411, guid: bd686d2029744534eb667cc24d96886c, type: 3}
   - {fileID: 9110411627961918984, guid: bd3becd2a879ad34e8cdecdfe623d0ce, type: 3}
   - {fileID: 1666300796620940851, guid: cab2aec2244d2744d818c2d0fd4faf1a, type: 3}
-  - {fileID: -5614131095109936981, guid: beb32d6ce6f48ed4ca8f488415ac9163, type: 3}
+  - {fileID: 1520284390620502242, guid: a598b3d877a3b884dad7c3cbd44cc62f, type: 3}
   outcastsRoles:
   - {fileID: 7559111888533575850, guid: 3bf90966f3b4fa449952c61bea4cf36c, type: 3}
   - {fileID: -5144363794753033451, guid: 2a099fcfacdd55447b5a949cffda0fdf, type: 3}
@@ -658,7 +658,6 @@ MonoBehaviour:
   evilsRoles:
   - {fileID: 1260520348217399934, guid: dc3d227167cebff4897d0d1eabca0213, type: 3}
   - {fileID: 6491730483603148511, guid: 03a5d023320ee4144bd4a98a5594101d, type: 3}
-  - {fileID: 5351388700702287351, guid: da1bb15a99b1d5c47a9aa25e9f4f695c, type: 3}
   - {fileID: 5351388700702287351, guid: da1bb15a99b1d5c47a9aa25e9f4f695c, type: 3}
   cardPool: {fileID: 88701699}
   createdVillagersRoles: []
