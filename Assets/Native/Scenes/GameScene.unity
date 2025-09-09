@@ -657,7 +657,7 @@ MonoBehaviour:
   - {fileID: -136609306258790582, guid: 1ed7d9fc38c28f44faf9606f7f6974e3, type: 3}
   evilsRoles:
   - {fileID: 1260520348217399934, guid: dc3d227167cebff4897d0d1eabca0213, type: 3}
-  - {fileID: 6491730483603148511, guid: 03a5d023320ee4144bd4a98a5594101d, type: 3}
+  - {fileID: 3795030498426721008, guid: 3e2cd767d608d9f4f8b6d250d4a31807, type: 3}
   - {fileID: 5351388700702287351, guid: da1bb15a99b1d5c47a9aa25e9f4f695c, type: 3}
   cardPool: {fileID: 88701699}
   createdVillagersRoles: []
@@ -666,7 +666,7 @@ MonoBehaviour:
   villagersCards: []
   outcastsCards: []
   evilsCards: []
-  trueEvilsCardsForCount: []
+  trueEvilsCards: []
   mergedList: []
   _trashList: []
   isEndAsignRoles: 0

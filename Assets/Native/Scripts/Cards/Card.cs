@@ -113,8 +113,6 @@ public class Card : MonoBehaviour
             {
                 _cardMessage.gameObject.SetActive(true);
                 _cardMessageText.text = _cardRole.SendMessage();
-                // if (_cardRole._roleType == "Evil") _cardMessageText.text = _cardRole._substituteRole.SendMessage();
-                // else _cardMessageText.text = _cardRole.SendMessage();
             }
         }
         else
@@ -137,7 +135,6 @@ public class Card : MonoBehaviour
             
             if (_cardRole._substituteRole._cardName == "Robber")
             {
-                _health.Damage(_cardRole._penaltyDamage);
                 if (_health.currentHealth == 0)
                 {
                     _roundDirector.RoundLose();
@@ -148,42 +145,53 @@ public class Card : MonoBehaviour
             
             _roundDirector.evilsKilled++;
             Debug.Log(_roundDirector.evilsKilled);
-            if (_roundDirector.evilsKilled == _roundDirector.roleDirector.trueEvilsCardsForCount.Count)
+            if (_roundDirector.evilsKilled == _roundDirector.roleDirector.trueEvilsCards.Count)
             {
                 _roundDirector.RoundWin();
             }
         }
         
-        else if (_cardRole._cardName == "Robber")
+        else if (_cardRole._roleType != "Evil" && _cardRole._isCorrupted == false)
         {
-            _health.Damage(_cardRole._penaltyDamage);
+            var damageAmount = _cardRole._penaltyDamage;
+            damageAmount = IsVoodooAbility(damageAmount);
+            if (_cardRole._cardName == "Robber")
+            {
+                _cardRole.PassiveAbility();
+            }
+        
+            if (_cardRole._cardName == "Knight" && !_cardRole._isCorrupted)
+            {
+                _cardRole._canShowMessage = true;
+                ShowMessage();
+                damageAmount = 0;
+            }
+            if (_cardRole._cardName == "Bomber" && !_cardRole._isCorrupted)
+            {
+                damageAmount = _health.currentHealth;
+            }
+            
+            _health.Damage(damageAmount);
+            damageAmount = 0;
             if (_health.currentHealth == 0)
             {
                 _roundDirector.RoundLose();
             }
-            _cardRole.PassiveAbility();
             
             Debug.Log("Is not Evil");
         }
         
-        else if (_cardRole._cardName == "Knight" && !_cardRole._isCorrupted)
-        {
-            _cardRole._canShowMessage = true;
-            ShowMessage();
-        }
-        else if (_cardRole._cardName == "Bomber" && !_cardRole._isCorrupted)
-        {
-            _health.Damage(_health.healthAmount);
-            _roundDirector.RoundLose();
-        }
         else
         {
+            var damageAmount = _cardRole._penaltyDamage;
+            damageAmount = IsVoodooAbility(damageAmount);
+            
             if (_cardRole._cardName == "Knight")
             {
                 _cardMessageText.gameObject.SetActive(false);
             }
             
-            _health.Damage(_cardRole._penaltyDamage);
+            _health.Damage(damageAmount);
             if (_health.currentHealth == 0)
             {
                 _roundDirector.RoundLose();
@@ -199,6 +207,24 @@ public class Card : MonoBehaviour
         _cardName.color = Color.black;
         _cardFlipAnimation.cardStrokeFrontSpriteRenderer.color = Color.white;
         _cardFlipAnimation.cardImageSpriteRenderer.color = Color.white;
+    }
+
+    private int IsVoodooAbility(int damageAmount)
+    {
+        if (_cardRole._cardName != "Knight")
+        {
+            foreach (var card in _cardRole._roleDirector.evilsCards)
+            {
+                if (card._cardRole._cardName == "Voodoo")
+                {
+                    if (card._cardRole._cardHandler.isKilled == false)
+                    {
+                        damageAmount += card._cardRole._abilityDamage;
+                    }
+                }
+            }
+        }
+        return damageAmount;
     }
 }
 
