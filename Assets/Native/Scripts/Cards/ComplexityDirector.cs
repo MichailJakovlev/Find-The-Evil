@@ -1,6 +1,6 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Mathematics.Geometry;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -9,12 +9,14 @@ public class ComplexityDirector : MonoBehaviour
     [Header("Object Links")]
     [SerializeField] private CardPool cardPool;
     [SerializeField] private RoleDirector roleDirector;
+    
     [Header("Roles")]
     [SerializeField] private List<Role> villagerRoles;
     [SerializeField] private List<Role> outcastRoles;
     [SerializeField] private List<Role> evilRoles;
-    [Header("Complexity Settings")]
+    [SerializeField] private List<Role> substituteRoles; 
     
+    [Header("Complexity Settings")]
     public int streakThreshold;
     public int setComplexityLevel;
 
@@ -68,7 +70,7 @@ public class ComplexityDirector : MonoBehaviour
         hardComlexityTemplates = new int[5][];
         for (int i = 0; i < hardComlexityTemplates.Length; i++)
         {
-            hardComlexityTemplates[i] = new int[5];
+            hardComlexityTemplates[i] = new int[3];
             switch (i)
             {
                 case 1: // 6 cards
@@ -98,12 +100,22 @@ public class ComplexityDirector : MonoBehaviour
                     break;
             }
         }
+        
         SetRoundComplexity();
+    }
 
-        foreach (var VARIABLE in GetWeight(8,4, 0))
+    public void UpdateCalculatedRoles()
+    {
+        substituteRoles.Clear();
+        for (int i = 0; i < villagerRoles.Count; i++)
         {
-            Debug.Log(string.Join(" + ", VARIABLE));
+            substituteRoles.Add(villagerRoles[i]);
         }
+        for (int i = 0; i < outcastRoles.Count; i++)
+        {
+            substituteRoles.Add(outcastRoles[i]);
+        }
+        substituteRoles.Shuffle();
     }
     
     public void CalculateComplexity(bool isWin)
@@ -132,6 +144,25 @@ public class ComplexityDirector : MonoBehaviour
                 ComplexityLevel--;
                 streak = 0;
             }
+        }
+    }
+    
+    public int CalculateDeckWeight(int rolesAmount) 
+    {
+        int rand = Random.Range(1, 3);
+        switch (rand)
+        {
+            case 1:
+                Debug.Log(rolesAmount * 2);
+                return Mathf.Clamp(rolesAmount * 2, 0,100);
+            case 2:
+                Debug.Log(rolesAmount * 2 + 1);
+                return Mathf.Clamp(rolesAmount * 2 + 1, 0,100);
+            case 3:
+                Debug.Log(rolesAmount * 2 - 1);
+               return Mathf.Clamp(rolesAmount * 2 - 1, 0,100);
+            default:
+                return Mathf.Clamp(rolesAmount * 2, 0,100);
         }
     }
     
@@ -171,13 +202,57 @@ public class ComplexityDirector : MonoBehaviour
         }
     }
     
-    public void CalculateVillagersRoles()
+    public List<Role> CalculateRoles(int deckWeight, int termsAmount, int minRoleWeight, List<Role> roles)
     {
+        List<int> currentCombination = GetWeight(deckWeight, termsAmount, minRoleWeight)[Random.Range(0, GetWeight(deckWeight, termsAmount, minRoleWeight).Count)];
+        List<Role> chosenRoles = new List<Role>();
+        roles.Shuffle();
         
+        for (int i = 0; i < roles.Count; i++)
+        {
+            if (chosenRoles.Count < termsAmount)
+            {
+                for (int j = 0; j < currentCombination.Count; j++)
+                {
+                    if (roles[i]._cardWeight == currentCombination[j])
+                    {
+                        chosenRoles.Add(roles[i]);
+                        currentCombination.RemoveAt(j);
+                        for (int z = 0; z < substituteRoles.Count; z++)
+                        {
+                            if (roles[i]._cardName == substituteRoles[z]._cardName)
+                            {
+                                substituteRoles.RemoveAt(z);
+                            }
+                        }
+                        break;
+                    }
+                }
+            }
+        } 
+       return chosenRoles;
     }
     
     public void SetRoundComplexity()
     {
-        // cardPool._cardAmount = 5 + ComplexityLevel;
+        UpdateCalculatedRoles();
+        int[] currentComplexityTemplate;
+        if (Random.value > 0.5)
+        {
+            //currentComplexityTemplate = easyComlexityTemplates[ComplexityLevel];
+            currentComplexityTemplate = hardComlexityTemplates[ComplexityLevel];
+        }
+        else
+        {
+            currentComplexityTemplate = hardComlexityTemplates[ComplexityLevel];
+        }
+        
+        roleDirector.createdVillagersRoles = CalculateRoles(CalculateDeckWeight(currentComplexityTemplate[0]), currentComplexityTemplate[0], 0, villagerRoles);
+        roleDirector.createdOutcastsRoles = CalculateRoles(1, currentComplexityTemplate[1], 1, outcastRoles);
+        roleDirector.createdEvilsRoles = CalculateRoles(CalculateDeckWeight(currentComplexityTemplate[2]), currentComplexityTemplate[2], 1, evilRoles);
+        roleDirector.createdSubstituteRoles = CalculateRoles(CalculateDeckWeight(currentComplexityTemplate[2]), currentComplexityTemplate[2], 0, substituteRoles);
+        
+        cardPool._cardAmount = 5 + ComplexityLevel;
+        cardPool.Get(5 + ComplexityLevel);
     }
 }

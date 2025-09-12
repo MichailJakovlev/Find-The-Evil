@@ -47,8 +47,6 @@ public class CardPool : MonoBehaviour
             cardMessages[i].gameObject.SetActive(false);
             cards[i].gameObject.SetActive(false);
         }
-
-        Get(_cardAmount);
     }
     
     public void Get(int cardAmount)
@@ -80,47 +78,46 @@ public class CardPool : MonoBehaviour
                 _axis.z = -_rotateValue;
             }
             
-              cards[i].gameObject.transform.rotation = new Quaternion(0,0,0,0);
-              cards[i].gameObject.transform.Rotate(_axis);
-              cards[i]._cardImage.GameObject().transform.Rotate(-_axis);
+            cards[i].gameObject.transform.rotation = new Quaternion(0,0,0,0);
+            cards[i].gameObject.transform.Rotate(_axis);
+            cards[i]._cardImage.GameObject().transform.Rotate(-_axis);
               
-              cardMessages[i].gameObject.transform.rotation = new Quaternion(0,0,0,0);
-              cardMessages[i].gameObject.transform.Rotate(_axis);
-              cardMessages[i].transform.GetChild(0).transform.Rotate(-_axis);
+            cardMessages[i].gameObject.transform.rotation = new Quaternion(0,0,0,0);
+            cardMessages[i].gameObject.transform.Rotate(_axis);
+            cardMessages[i].transform.GetChild(0).transform.Rotate(-_axis);
               
-              if (i > (value - 1) / 2)
-              {
-                  cardMessages[i].GetComponent<CardMessage>().ChangePosition(cards[i].MessageZone[0]); //right
-                  cards[i]._cardDescription._descriptionRectTransform.localPosition = new Vector3(cards[i]._cardDescription._descriptionCanvas.sizeDelta.x / 2, 0f, 0f);
-                  cards[i]._cardDescription.descriptionLayoutGroup.childAlignment = TextAnchor.UpperLeft;
-              }
-              else if(i == 0 && value % 2 != 0)
-              {
-                  cardMessages[i].GetComponent<CardMessage>().ChangePosition(cards[i].MessageZone[3]);// bottom
-                  cards[i]._cardDescription._descriptionRectTransform.localPosition = new Vector3(0f, 0f, 0f);
-                  cards[i]._cardDescription.descriptionLayoutGroup.childAlignment = TextAnchor.UpperCenter;
-              }
-              else if(i == 0 && value % 2 == 0)
-              {
-                  cardMessages[i].GetComponent<CardMessage>().ChangePosition(cards[i].MessageZone[3]);// bottom
-                  cards[i]._cardDescription._descriptionRectTransform.localPosition = new Vector3(0f, 0f, 0f);
-                  cards[i]._cardDescription.descriptionLayoutGroup.childAlignment = TextAnchor.UpperCenter;
-              }
-              else
-              {
-                  cardMessages[i].GetComponent<CardMessage>().ChangePosition(cards[i].MessageZone[1]); //left
-                  cards[i]._cardDescription._descriptionRectTransform.localPosition = new Vector3(0f, 0f, 0f);
-                  cards[i]._cardDescription._descriptionRectTransform.localPosition = new Vector3(cards[i]._cardDescription._descriptionCanvas.sizeDelta.x / 2 * -1, 0f, 0f);
-                  cards[i]._cardDescription.descriptionLayoutGroup.childAlignment = TextAnchor.UpperRight;
-              }
+            if (i > (value - 1) / 2)
+            {
+                cardMessages[i].GetComponent<CardMessage>().ChangePosition(cards[i].MessageZone[0]); //right
+                cards[i]._cardDescription._descriptionRectTransform.localPosition = new Vector3(cards[i]._cardDescription._descriptionCanvas.sizeDelta.x / 2, 0f, 0f);
+                cards[i]._cardDescription.descriptionLayoutGroup.childAlignment = TextAnchor.UpperLeft;
+            }
+            else if(i == 0 && value % 2 != 0)
+            {
+                cardMessages[i].GetComponent<CardMessage>().ChangePosition(cards[i].MessageZone[3]);// bottom
+                cards[i]._cardDescription._descriptionRectTransform.localPosition = new Vector3(0f, 0f, 0f);
+                cards[i]._cardDescription.descriptionLayoutGroup.childAlignment = TextAnchor.UpperCenter;
+            }
+            else if(i == 0 && value % 2 == 0)
+            {
+                cardMessages[i].GetComponent<CardMessage>().ChangePosition(cards[i].MessageZone[3]);// bottom
+                cards[i]._cardDescription._descriptionRectTransform.localPosition = new Vector3(0f, 0f, 0f);
+                cards[i]._cardDescription.descriptionLayoutGroup.childAlignment = TextAnchor.UpperCenter;
+            }
+            else
+            {
+                cardMessages[i].GetComponent<CardMessage>().ChangePosition(cards[i].MessageZone[1]); //left
+                cards[i]._cardDescription._descriptionRectTransform.localPosition = new Vector3(0f, 0f, 0f);
+                cards[i]._cardDescription._descriptionRectTransform.localPosition = new Vector3(cards[i]._cardDescription._descriptionCanvas.sizeDelta.x / 2 * -1, 0f, 0f);
+                cards[i]._cardDescription.descriptionLayoutGroup.childAlignment = TextAnchor.UpperRight;
+            }
              
-              if(i == value / 2 && value % 2 == 0)
-              {
-                  cardMessages[i].GetComponent<CardMessage>().ChangePosition(cards[i].MessageZone[2]); // top
-                  cards[i]._cardDescription._descriptionRectTransform.localPosition = new Vector3(0f, 0f, 0f);
-                  cards[i]._cardDescription.descriptionLayoutGroup.childAlignment = TextAnchor.UpperCenter;
-              }
-              
+            if(i == value / 2 && value % 2 == 0)
+            {
+                cardMessages[i].GetComponent<CardMessage>().ChangePosition(cards[i].MessageZone[2]); // top
+                cards[i]._cardDescription._descriptionRectTransform.localPosition = new Vector3(0f, 0f, 0f);
+                cards[i]._cardDescription.descriptionLayoutGroup.childAlignment = TextAnchor.UpperCenter;
+            }
         }
     }
     
@@ -138,6 +135,5 @@ public class CardPool : MonoBehaviour
             cardMessages[i].SetActive(false);   
         }
         roleDirector.ClearRoles();
-        Get(_cardAmount);
     }
 }

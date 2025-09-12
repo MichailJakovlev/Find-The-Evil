@@ -49,6 +49,7 @@ MonoBehaviour:
   _roleDirector: {fileID: 0}
   _cardHandler: {fileID: 0}
   _card: {fileID: 0}
+  _cardWeight: 3
   _cardName: Robber
   _roleType: Outcast
   _selectCardAmount: 0
