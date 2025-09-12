@@ -49,7 +49,7 @@ MonoBehaviour:
   _roleDirector: {fileID: 0}
   _cardHandler: {fileID: 0}
   _card: {fileID: 0}
-  _cardWeight: 0
+  _cardWeight: 2
   _cardName: Maniac
   _roleType: Outcast
   _selectCardAmount: 0
