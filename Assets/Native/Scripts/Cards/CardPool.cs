@@ -8,6 +8,7 @@ public class CardPool : MonoBehaviour
     [SerializeField] public GameObject[] cardMessages;
     [SerializeField] private RoleDirector roleDirector;
     
+    private RoundDirector roundDirector;
     public Card[] cards;
     public int _maxCardAmount;
     public int _cardAmount;
@@ -28,6 +29,7 @@ public class CardPool : MonoBehaviour
 
     void Start()
     {
+        roundDirector = FindObjectOfType<RoundDirector>();
         _killCardButton = FindFirstObjectByType<KillCardButton>();
         _killCardButton.Hide();
         cards = new Card[_maxCardAmount];
@@ -63,6 +65,7 @@ public class CardPool : MonoBehaviour
         
         PositionChanger(cardAmount);
         roleDirector.AssignRoles();
+        StartCoroutine(roundDirector.WaitAsignRoles()); // round start
     }
 
     public void PositionChanger(int value)

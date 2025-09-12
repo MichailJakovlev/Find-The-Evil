@@ -28,6 +28,7 @@ public class Health : MonoBehaviour
 
     public void Damage(int damagePoints = 5)
     {
+        Debug.Log("Got Damaged");
         if (currentHealth - damagePoints <= 0)
         {
             currentHealth = 0;

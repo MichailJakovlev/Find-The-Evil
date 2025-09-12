@@ -1,3 +1,4 @@
+using ModestTree;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -9,6 +10,7 @@ public class CardHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     private bool isUsingAbility = false;
     private Card usedAbilityCard;
     private Ability ability;
+    private RoundDirector roundDirector;
     
     public bool isKillMode = false;
     public bool isAbilityUsed = false;
@@ -39,6 +41,7 @@ public class CardHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     private void Start()
     {
         ability = FindObjectOfType<Ability>();
+        roundDirector = FindObjectOfType<RoundDirector>();
         card._cardName.gameObject.SetActive(false);
     }
     
@@ -178,6 +181,57 @@ public class CardHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
                 {
                     card._cardName.gameObject.SetActive(true);
                     card.ShowMessage();
+                    roundDirector.openedCards++;
+
+                    roundDirector.closedCardsList.Remove(card);
+                    
+                    // <Debug Logs>
+                    if (roundDirector.cardsInRoundList.IsEmpty() && roundDirector.openedCards == roundDirector.cardsInRoundList.Count)
+                    {
+                        Debug.LogError("cardsInRoundList is Empty");
+                    }
+                    
+                    string result = "List contents: ";
+                    foreach (var num in roundDirector.closedCardsList)
+                    {
+                        result += $"[{num._cardRole._cardNumber}]" + num._cardRole._cardName.ToString() + ", ";
+                    }
+                    
+                    Debug.Log($"role: " + card._cardRole._cardName + $", substituteRole: "
+                              + card._cardRole._substituteRole._cardName + "\n" + result);
+                    // </Debug Logs>
+                    
+                    if (card._cardRole._substituteRole._cardName == "Maniac")
+                    {
+                        Debug.Log(card._cardRole._substituteRole._cardNumber);
+                        if (!roundDirector.closedCardsList.IsEmpty())
+                        {
+                            int randomIndex = 0;
+                            randomIndex += Random.Range(0, roundDirector.closedCardsList.Count);
+                            var killedCard = roundDirector.closedCardsList[randomIndex];
+                            if (killedCard._cardRole._cardName != "Bomber")
+                            {
+                                roundDirector.closedCardsList[randomIndex].KillCardAbility();
+                                if (killedCard._cardRole._substituteRole._cardName == "Knight" && killedCard._cardRole._isCorrupted == false) // ??????????
+                                {
+                                    card._health.Damage(0);
+                                }
+                                else if (killedCard._cardRole._roleType == "Evil")
+                                {
+                                    card._health.Damage(0);
+                                }
+                                else
+                                {
+                                    card._health.Damage(card._cardRole._substituteRole._abilityDamage);
+                                }
+                            }
+                            else
+                            {
+                                Debug.Log("<b>I'm afraid of Bomber</b>");
+                            } 
+                        }
+                    }
+                    
                     cardFlipAnimation.OnCardClick();
                 }
             }
@@ -186,9 +240,12 @@ public class CardHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             {
                 isKilled = true;
                 card.KillCard();
+                roundDirector.cardsInRoundList.Remove(card);
                 if (!isFlipped)
                 {
                     card.ShowMessage();
+                    roundDirector.openedCards++;
+                    Debug.Log(card._cardRole._cardName);
                 }
                 card._cardName.gameObject.SetActive(true);
                 cardFlipAnimation.OnCardClick();
