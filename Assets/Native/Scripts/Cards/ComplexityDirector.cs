@@ -20,9 +20,11 @@ public class ComplexityDirector : MonoBehaviour
     public int streakThreshold;
     public int setComplexityLevel;
 
+    private List<Role> intermediateRoles = new List<Role>();
     private int[][] easyComlexityTemplates;
     private int[][] hardComlexityTemplates;
     private int streak = 0;
+    private int tries = 1;
 
     static int complexityLevel;
     public static int ComplexityLevel
@@ -39,27 +41,27 @@ public class ComplexityDirector : MonoBehaviour
             easyComlexityTemplates[i] = new int[3];
             switch (i)
             {
-                case 1: // 6 cards
+                case 0: // 6 cards
                     easyComlexityTemplates[i][0] = 5;
                     easyComlexityTemplates[i][1] = 0;
                     easyComlexityTemplates[i][2] = 1;
                     break;
-                case 2: // 7 cards
+                case 1: // 7 cards
                     easyComlexityTemplates[i][0] = 4;
                     easyComlexityTemplates[i][1] = 2;
                     easyComlexityTemplates[i][2] = 1;
                     break; 
-                case 3: // 8 cards
+                case 2: // 8 cards
                     easyComlexityTemplates[i][0] = 4;
                     easyComlexityTemplates[i][1] = 2;
                     easyComlexityTemplates[i][2] = 2;
                     break;
-                case 4: // 9 cards
+                case 3: // 9 cards
                     easyComlexityTemplates[i][0] = 4;
                     easyComlexityTemplates[i][1] = 3;
                     easyComlexityTemplates[i][2] = 2;
                     break;
-                case 5: // 10 cards
+                case 4: // 10 cards
                     easyComlexityTemplates[i][0] = 4;
                     easyComlexityTemplates[i][1] = 3;
                     easyComlexityTemplates[i][2] = 3;
@@ -73,27 +75,27 @@ public class ComplexityDirector : MonoBehaviour
             hardComlexityTemplates[i] = new int[3];
             switch (i)
             {
-                case 1: // 6 cards
+                case 0: // 6 cards
                     hardComlexityTemplates[i][0] = 4;
                     hardComlexityTemplates[i][1] = 1;
                     hardComlexityTemplates[i][2] = 1;
                     break;
-                case 2: // 7 cards
+                case 1: // 7 cards
                     hardComlexityTemplates[i][0] = 4;
                     hardComlexityTemplates[i][1] = 1;
                     hardComlexityTemplates[i][2] = 2;
                     break;
-                case 3: // 8 cards
+                case 2: // 8 cards
                     hardComlexityTemplates[i][0] = 4;
                     hardComlexityTemplates[i][1] = 1;
                     hardComlexityTemplates[i][2] = 3;
                     break;
-                case 4: // 9 cards
+                case 3: // 9 cards
                     hardComlexityTemplates[i][0] = 4;
                     hardComlexityTemplates[i][1] = 2;
                     hardComlexityTemplates[i][2] = 3;
                     break;
-                case 5: // 10 cards
+                case 4: // 10 cards
                     hardComlexityTemplates[i][0] = 4;
                     hardComlexityTemplates[i][1] = 2;
                     hardComlexityTemplates[i][2] = 4;
@@ -188,7 +190,7 @@ public class ComplexityDirector : MonoBehaviour
                 {
                     results.Add(newCombination);
                 }
-            }
+            }   
             return;
         }
 
@@ -204,6 +206,10 @@ public class ComplexityDirector : MonoBehaviour
     
     public List<Role> CalculateRoles(int deckWeight, int termsAmount, int minRoleWeight, List<Role> roles)
     {
+        if (termsAmount == 0)
+        {
+            return new List<Role>();
+        }
         List<int> currentCombination = GetWeight(deckWeight, termsAmount, minRoleWeight)[Random.Range(0, GetWeight(deckWeight, termsAmount, minRoleWeight).Count)];
         List<Role> chosenRoles = new List<Role>();
         roles.Shuffle();
@@ -229,7 +235,7 @@ public class ComplexityDirector : MonoBehaviour
                     }
                 }
             }
-        } 
+        }
        return chosenRoles;
     }
     
@@ -239,20 +245,29 @@ public class ComplexityDirector : MonoBehaviour
         int[] currentComplexityTemplate;
         if (Random.value > 0.5)
         {
-            //currentComplexityTemplate = easyComlexityTemplates[ComplexityLevel];
-            currentComplexityTemplate = hardComlexityTemplates[ComplexityLevel];
+            currentComplexityTemplate = easyComlexityTemplates[ComplexityLevel - 1];
         }
         else
         {
-            currentComplexityTemplate = hardComlexityTemplates[ComplexityLevel];
+            currentComplexityTemplate = hardComlexityTemplates[ComplexityLevel - 1];
         }
         
         roleDirector.createdVillagersRoles = CalculateRoles(CalculateDeckWeight(currentComplexityTemplate[0]), currentComplexityTemplate[0], 0, villagerRoles);
-        roleDirector.createdOutcastsRoles = CalculateRoles(2, currentComplexityTemplate[1], 1, outcastRoles);
+        roleDirector.createdOutcastsRoles = CalculateRoles(CalculateDeckWeight(currentComplexityTemplate[1]), currentComplexityTemplate[1], 1, outcastRoles);
         roleDirector.createdEvilsRoles = CalculateRoles(CalculateDeckWeight(currentComplexityTemplate[2]), currentComplexityTemplate[2], 1, evilRoles);
         roleDirector.createdSubstituteRoles = CalculateRoles(CalculateDeckWeight(currentComplexityTemplate[2]), currentComplexityTemplate[2], 0, substituteRoles);
-        
-        cardPool._cardAmount = 5 + ComplexityLevel;
-        cardPool.Get(5 + ComplexityLevel);
+
+        if (roleDirector.createdVillagersRoles.Count != currentComplexityTemplate[0] || roleDirector.createdOutcastsRoles.Count != currentComplexityTemplate[1] || roleDirector.createdEvilsRoles.Count != currentComplexityTemplate[2] || roleDirector.createdSubstituteRoles.Count != currentComplexityTemplate[2])
+        {
+            tries++;
+            SetRoundComplexity();
+        }
+        else
+        {
+            Debug.Log("<color=green>Successed with</color> " + tries + " tries");
+            tries = 1;
+            cardPool._cardAmount = 5 + ComplexityLevel;
+            cardPool.Get(5 + ComplexityLevel);
+        }
     }
 }

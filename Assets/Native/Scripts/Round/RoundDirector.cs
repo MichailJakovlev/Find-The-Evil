@@ -8,6 +8,7 @@ public class RoundDirector : MonoBehaviour
 {
     [HideInInspector] public Health health;
     [HideInInspector] public RoleDirector roleDirector;
+    [HideInInspector] public ComplexityDirector complexityDirector;
     
     public List<Card> closedCardsList = new List<Card>();
     public List<Card> cardsInRoundList = new List<Card>();
@@ -19,6 +20,7 @@ public class RoundDirector : MonoBehaviour
     {
         health = FindObjectOfType<Health>();
         roleDirector = FindObjectOfType<RoleDirector>();
+        complexityDirector = FindObjectOfType<ComplexityDirector>();
 
     }
     
@@ -42,18 +44,20 @@ public class RoundDirector : MonoBehaviour
     
     public void RoundEnd()
     {
-        Debug.Log("Round End");
+        // Debug.Log("Round End");
     }
     
     public void RoundWin()
     {
         Debug.Log("Round Win");
+        complexityDirector.CalculateComplexity(true);
         RoundEnd();
     }
     
     public void RoundLose()
     {
         Debug.Log("Round Lose");
+        complexityDirector.CalculateComplexity(false);
         RoundEnd();
     }
     

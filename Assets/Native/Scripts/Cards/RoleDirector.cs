@@ -13,6 +13,8 @@ public class RoleDirector : MonoBehaviour
     public List<Role> createdVillagersRoles;
     public List<Role> createdOutcastsRoles;
     public List<Role> createdEvilsRoles;
+    public List<Role> currentSubstituteRoles;
+    [HideInInspector]
     public List<Role> createdSubstituteRoles;
 
     [Header("Created Cards")] 
@@ -21,7 +23,7 @@ public class RoleDirector : MonoBehaviour
     public List<Card> evilsCards;
     public List<Card> substituteCards;
     public List<Card> trueEvilsCards;
-
+    
     private AbilityInfo _abilityInfo;
     [HideInInspector]
     public List<Role> mergedList;
@@ -90,9 +92,9 @@ public class RoleDirector : MonoBehaviour
     {
         for (int i = 0; i < createdEvilsRoles.Count; i++)
         {
-            Role role = Instantiate(createdSubstituteRoles[i]);
+            currentSubstituteRoles.Add(Instantiate(createdSubstituteRoles[i]));
             createdSubstituteRoles[i] = Instantiate(createdEvilsRoles[i]);
-            createdSubstituteRoles[i]._substituteRole = role;
+            createdSubstituteRoles[i]._substituteRole = currentSubstituteRoles[i];
         }
     }
     
@@ -132,6 +134,12 @@ public class RoleDirector : MonoBehaviour
             
         }
         mergedList.Clear();
+        
+        for (int i = 0; i < currentSubstituteRoles.Count; i++)
+        {
+            Destroy(currentSubstituteRoles[i].gameObject);
+        }
+        currentSubstituteRoles.Clear();
         trueEvilsCards.Clear();
         
         complexityDirector.SetRoundComplexity();
