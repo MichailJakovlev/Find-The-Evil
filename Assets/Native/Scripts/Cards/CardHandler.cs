@@ -19,6 +19,7 @@ public class CardHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     
     public bool isFlippable = true;
     public bool isKilled = false;
+    public bool isArmored = false;
     
     public void OnEnable()
     {

@@ -303,6 +303,7 @@ MonoBehaviour:
   - {fileID: -1024789019349685123, guid: a9404b1b3c71d804884e5181bff29c27, type: 3}
   - {fileID: -2343583852235341154, guid: 26fa64a12bc341c48861f36110ac5d7c, type: 3}
   - {fileID: 4980417529721510641, guid: 776d6c1b10e4f37479b835f5953cf0d0, type: 3}
+  - {fileID: 8639899607711604581, guid: c99217d1a82a14448916a6e34fee68c5, type: 3}
   outcastRoles:
   - {fileID: -6824503300736275892, guid: c181a3ffc02c29646ad4197922eb94f5, type: 3}
   - {fileID: -5144363794753033451, guid: 2a099fcfacdd55447b5a949cffda0fdf, type: 3}

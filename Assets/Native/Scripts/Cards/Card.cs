@@ -56,6 +56,10 @@ public class Card : MonoBehaviour
             {
                 _cardRole._canShowMessage = false;
             }
+            if (_cardRole._substituteRole._cardName == "Armor Smith")
+            {
+                _cardRole._canShowMessage = false;
+            }
             if (_cardRole._substituteRole._cardName == "Robber")
             {
                 StartCoroutine(WaitInits(true));
@@ -82,6 +86,10 @@ public class Card : MonoBehaviour
         _cardMessage.gameObject.SetActive(false);
         
         if (_cardRole._cardName == "Witch Doctor")
+        {
+            StartCoroutine(WaitInits());
+        }
+        else if (_cardRole._cardName == "Armor Smith")
         {
             StartCoroutine(WaitInits());
         }
@@ -121,96 +129,112 @@ public class Card : MonoBehaviour
 
     public void KillCard()
     {
-        Debug.Log("Killed Card is: " + _cardName.text);
-        if (_cardRole._roleType == "Evil")
+        if (_cardRole._cardHandler.isArmored == true)
         {
-            _cardName.text = _cardRole._cardName;
-            _cardName.color = Color.white;
-            _cardFlipAnimation.cardStrokeFrontSpriteRenderer.color = Color.black;
-            _cardFlipAnimation.cardImageSpriteRenderer.color = Color.red;
-            _cardFlipAnimation.cardBackSpriteRenderer.color = Color.red;
-            _cardDescription._roleTypeBackground.GetComponent<Image>().color = new Color(168 / 255f, 19 / 255f, 24 / 255f);
-            _cardDescription._cardRoleTypeText.text = _cardRole._roleType;
-            _cardDescription._cardDescriptionText.text = _cardRole._cardInfoText;
-            
-            if (_cardRole._substituteRole._cardName == "Robber")
+            foreach (var card in _roundDirector.cardsInRoundList)
             {
+                if (card._cardRole._cardName == "Armor Smith")
+                {
+                    card._cardRole._canShowMessage = true;
+                    card.ShowMessage();
+                }
+            }
+            _cardRole._cardHandler.isArmored = false;
+        }
+        else
+        {
+            Debug.Log("Killed Card is: " + _cardName.text);
+            if (_cardRole._roleType == "Evil")
+            {
+                _cardName.text = _cardRole._cardName;
+                _cardName.color = Color.white;
+                _cardFlipAnimation.cardStrokeFrontSpriteRenderer.color = Color.black;
+                _cardFlipAnimation.cardImageSpriteRenderer.color = Color.red;
+                _cardFlipAnimation.cardBackSpriteRenderer.color = Color.red;
+                _cardDescription._roleTypeBackground.GetComponent<Image>().color = new Color(168 / 255f, 19 / 255f, 24 / 255f);
+                _cardDescription._cardRoleTypeText.text = _cardRole._roleType;
+                _cardDescription._cardDescriptionText.text = _cardRole._cardInfoText;
+                
+                if (_cardRole._substituteRole._cardName == "Robber")
+                {
+                    if (_health.currentHealth == 0)
+                    {
+                        _roundDirector.RoundLose();
+                    }
+                    _cardRole._substituteRole.PassiveAbility(_cardRole._card.cardId);
+                
+                }
+                
+                _roundDirector.evilsKilled++;
+                Debug.Log(_roundDirector.evilsKilled);
+                if (_roundDirector.evilsKilled == _roundDirector.roleDirector.trueEvilsCards.Count)
+                {
+                    _roundDirector.RoundWin();
+                }
+            }
+            
+            else if (_cardRole._roleType != "Evil" && _cardRole._isCorrupted == false)
+            {
+                _cardName.color = Color.white;
+                _cardFlipAnimation.cardStrokeFrontSpriteRenderer.color = Color.black;
+                _cardFlipAnimation.cardImageSpriteRenderer.color = Color.green;
+                _cardFlipAnimation.cardBackSpriteRenderer.color = Color.green;
+                _cardDescription._roleTypeBackground.GetComponent<Image>().color = Color.white;
+                
+                var damageAmount = _cardRole._penaltyDamage;
+                damageAmount = VoodooAbility(damageAmount);
+                if (_cardRole._cardName == "Robber")
+                {
+                    _cardRole.PassiveAbility();
+                }
+            
+                if (_cardRole._cardName == "Knight" && !_cardRole._isCorrupted)
+                {
+                    _cardRole._canShowMessage = true;
+                    ShowMessage();
+                    damageAmount = 0;
+                }
+                if (_cardRole._cardName == "Bomber" && !_cardRole._isCorrupted)
+                {
+                    damageAmount = _health.currentHealth;
+                }
+                
+                _health.Damage(damageAmount);
+                damageAmount = 0;
                 if (_health.currentHealth == 0)
                 {
                     _roundDirector.RoundLose();
                 }
-                _cardRole._substituteRole.PassiveAbility(_cardRole._card.cardId);
-            
+                
+                Debug.Log("Is not Evil");
             }
             
-            _roundDirector.evilsKilled++;
-            Debug.Log(_roundDirector.evilsKilled);
-            if (_roundDirector.evilsKilled == _roundDirector.roleDirector.trueEvilsCards.Count)
+            else
             {
-                _roundDirector.RoundWin();
+                _cardName.color = Color.white;
+                _cardFlipAnimation.cardStrokeFrontSpriteRenderer.color = Color.black;
+                _cardFlipAnimation.cardImageSpriteRenderer.color = Color.green;
+                _cardFlipAnimation.cardBackSpriteRenderer.color = Color.green;
+                _cardDescription._roleTypeBackground.GetComponent<Image>().color = Color.white;
+                
+                var damageAmount = _cardRole._penaltyDamage;
+                damageAmount = VoodooAbility(damageAmount);
+                
+                if (_cardRole._cardName == "Knight")
+                {
+                    _cardMessageText.gameObject.SetActive(false);
+                }
+                
+                _health.Damage(damageAmount);
+                if (_health.currentHealth == 0)
+                {
+                    _roundDirector.RoundLose();
+                }
+                
+                Debug.Log("Is not Evil");
             }
         }
         
-        else if (_cardRole._roleType != "Evil" && _cardRole._isCorrupted == false)
-        {
-            _cardName.color = Color.white;
-            _cardFlipAnimation.cardStrokeFrontSpriteRenderer.color = Color.black;
-            _cardFlipAnimation.cardImageSpriteRenderer.color = Color.green;
-            _cardFlipAnimation.cardBackSpriteRenderer.color = Color.green;
-            _cardDescription._roleTypeBackground.GetComponent<Image>().color = Color.white;
-            
-            var damageAmount = _cardRole._penaltyDamage;
-            damageAmount = VoodooAbility(damageAmount);
-            if (_cardRole._cardName == "Robber")
-            {
-                _cardRole.PassiveAbility();
-            }
-        
-            if (_cardRole._cardName == "Knight" && !_cardRole._isCorrupted)
-            {
-                _cardRole._canShowMessage = true;
-                ShowMessage();
-                damageAmount = 0;
-            }
-            if (_cardRole._cardName == "Bomber" && !_cardRole._isCorrupted)
-            {
-                damageAmount = _health.currentHealth;
-            }
-            
-            _health.Damage(damageAmount);
-            damageAmount = 0;
-            if (_health.currentHealth == 0)
-            {
-                _roundDirector.RoundLose();
-            }
-            
-            Debug.Log("Is not Evil");
-        }
-        
-        else
-        {
-            _cardName.color = Color.white;
-            _cardFlipAnimation.cardStrokeFrontSpriteRenderer.color = Color.black;
-            _cardFlipAnimation.cardImageSpriteRenderer.color = Color.green;
-            _cardFlipAnimation.cardBackSpriteRenderer.color = Color.green;
-            _cardDescription._roleTypeBackground.GetComponent<Image>().color = Color.white;
-            
-            var damageAmount = _cardRole._penaltyDamage;
-            damageAmount = VoodooAbility(damageAmount);
-            
-            if (_cardRole._cardName == "Knight")
-            {
-                _cardMessageText.gameObject.SetActive(false);
-            }
-            
-            _health.Damage(damageAmount);
-            if (_health.currentHealth == 0)
-            {
-                _roundDirector.RoundLose();
-            }
-            
-            Debug.Log("Is not Evil");
-        }
         _uiHandler.KillMode();
     }
     
@@ -242,84 +266,99 @@ public class Card : MonoBehaviour
     
     public void KillCardAbility()
     {
-        Debug.Log("Card got killed" + _cardName.text);
-        if (_cardRole._roleType == "Evil")
+        if (_cardRole._cardHandler.isArmored == true)
         {
-            _cardName.text = _cardRole._cardName;
-            _cardName.color = Color.white;
-            _cardFlipAnimation.cardStrokeFrontSpriteRenderer.color = Color.black;
-            _cardFlipAnimation.cardImageSpriteRenderer.color = Color.red;
-            _cardFlipAnimation.cardBackSpriteRenderer.color = Color.red;
-            _cardDescription._roleTypeBackground.GetComponent<Image>().color = new Color(168 / 255f, 19 / 255f, 24 / 255f);
-            _cardDescription._cardRoleTypeText.text = _cardRole._roleType;
-            _cardDescription._cardDescriptionText.text = _cardRole._cardInfoText;
-            
-            if (_cardRole._substituteRole._cardName == "Robber")
+            foreach (var card in _roundDirector.cardsInRoundList)
             {
+                if (card._cardRole._cardName == "Armor Smith")
+                {
+                    card._cardRole._canShowMessage = true;
+                    card.ShowMessage();
+                }
+            }
+            _cardRole._cardHandler.isArmored = false;
+        }
+        else
+        {
+            Debug.Log("Card got killed" + _cardName.text);
+            if (_cardRole._roleType == "Evil")
+            {
+                _cardName.text = _cardRole._cardName;
+                _cardName.color = Color.white;
+                _cardFlipAnimation.cardStrokeFrontSpriteRenderer.color = Color.black;
+                _cardFlipAnimation.cardImageSpriteRenderer.color = Color.red;
+                _cardFlipAnimation.cardBackSpriteRenderer.color = Color.red;
+                _cardDescription._roleTypeBackground.GetComponent<Image>().color = new Color(168 / 255f, 19 / 255f, 24 / 255f);
+                _cardDescription._cardRoleTypeText.text = _cardRole._roleType;
+                _cardDescription._cardDescriptionText.text = _cardRole._cardInfoText;
+                
+                if (_cardRole._substituteRole._cardName == "Robber")
+                {
+                    if (_health.currentHealth == 0)
+                    {
+                        _roundDirector.RoundLose();
+                    }
+                    _cardRole._substituteRole.PassiveAbility(_cardRole._card.cardId);
+                
+                }
+                
+                _roundDirector.evilsKilled++;
+                Debug.Log(_roundDirector.evilsKilled);
+                if (_roundDirector.evilsKilled == _roundDirector.roleDirector.trueEvilsCards.Count)
+                {
+                    _roundDirector.RoundWin();
+                }
+            }
+            
+            else if (_cardRole._roleType != "Evil" && _cardRole._isCorrupted == false)
+            {
+                _cardName.color = Color.white;
+                _cardFlipAnimation.cardStrokeFrontSpriteRenderer.color = Color.black;
+                _cardFlipAnimation.cardImageSpriteRenderer.color = Color.green;
+                _cardFlipAnimation.cardBackSpriteRenderer.color = Color.green;
+                _cardDescription._roleTypeBackground.GetComponent<Image>().color = Color.white;
+                
+                if (_cardRole._cardName == "Robber")
+                {
+                    _cardRole.PassiveAbility();
+                }
+            
+                if (_cardRole._cardName == "Knight" && !_cardRole._isCorrupted)
+                {
+                    _cardRole._canShowMessage = true;
+                    ShowMessage();
+                }
+                
                 if (_health.currentHealth == 0)
                 {
                     _roundDirector.RoundLose();
                 }
-                _cardRole._substituteRole.PassiveAbility(_cardRole._card.cardId);
-            
+                Debug.Log("Is not Evil");
             }
             
-            _roundDirector.evilsKilled++;
-            Debug.Log(_roundDirector.evilsKilled);
-            if (_roundDirector.evilsKilled == _roundDirector.roleDirector.trueEvilsCards.Count)
+            else
             {
-                _roundDirector.RoundWin();
+                _cardName.color = Color.white;
+                _cardFlipAnimation.cardStrokeFrontSpriteRenderer.color = Color.black;
+                _cardFlipAnimation.cardImageSpriteRenderer.color = Color.green;
+                _cardFlipAnimation.cardBackSpriteRenderer.color = Color.green;
+                _cardDescription._roleTypeBackground.GetComponent<Image>().color = Color.white;
+                
+                
+                if (_cardRole._cardName == "Knight")
+                {
+                    _cardMessageText.gameObject.SetActive(false);
+                }
+                
+                if (_health.currentHealth == 0)
+                {
+                    _roundDirector.RoundLose();
+                }
+                
+                Debug.Log("Is not Evil");
             }
-        }
-        
-        else if (_cardRole._roleType != "Evil" && _cardRole._isCorrupted == false)
-        {
-            _cardName.color = Color.white;
-            _cardFlipAnimation.cardStrokeFrontSpriteRenderer.color = Color.black;
-            _cardFlipAnimation.cardImageSpriteRenderer.color = Color.green;
-            _cardFlipAnimation.cardBackSpriteRenderer.color = Color.green;
-            _cardDescription._roleTypeBackground.GetComponent<Image>().color = Color.white;
-            
-            if (_cardRole._cardName == "Robber")
-            {
-                _cardRole.PassiveAbility();
-            }
-        
-            if (_cardRole._cardName == "Knight" && !_cardRole._isCorrupted)
-            {
-                _cardRole._canShowMessage = true;
-                ShowMessage();
-            }
-            
-            if (_health.currentHealth == 0)
-            {
-                _roundDirector.RoundLose();
-            }
-            Debug.Log("Is not Evil");
-        }
-        
-        else
-        {
-            _cardName.color = Color.white;
-            _cardFlipAnimation.cardStrokeFrontSpriteRenderer.color = Color.black;
-            _cardFlipAnimation.cardImageSpriteRenderer.color = Color.green;
-            _cardFlipAnimation.cardBackSpriteRenderer.color = Color.green;
-            _cardDescription._roleTypeBackground.GetComponent<Image>().color = Color.white;
-            
-            
-            if (_cardRole._cardName == "Knight")
-            {
-                _cardMessageText.gameObject.SetActive(false);
-            }
-            
-            if (_health.currentHealth == 0)
-            {
-                _roundDirector.RoundLose();
-            }
-            
-            Debug.Log("Is not Evil");
-        }
         // _cardRole._substituteRole._cardHandler.isFlippable = false;
+        }
     }
 }
 
